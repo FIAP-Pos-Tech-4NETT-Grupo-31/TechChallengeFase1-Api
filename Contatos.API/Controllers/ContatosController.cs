@@ -3,6 +3,7 @@ using Contatos.API.Dto;
 using Contatos.API.Interfaces;
 using Contatos.API.Models;
 using Contatos.API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 
@@ -10,6 +11,7 @@ namespace Contatos.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class ContatosController(IContatoService contatoService) : ControllerBase
     {
         private readonly IContatoService _contatoService = contatoService;

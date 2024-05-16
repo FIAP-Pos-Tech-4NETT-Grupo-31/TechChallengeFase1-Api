@@ -1,12 +1,14 @@
 ﻿using Contatos.API.Dto;
 using Contatos.API.Interfaces;
 using Contatos.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Contatos.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class RegioesController(IRegiaoService regiaoService) : ControllerBase
     {
         private readonly IRegiaoService _regiaoService = regiaoService;
