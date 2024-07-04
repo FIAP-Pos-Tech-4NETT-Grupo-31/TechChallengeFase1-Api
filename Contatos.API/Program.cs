@@ -53,7 +53,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Description =
             "JWT Authorization Header - utilizado com Bearer Authentication.\r\n\r\n" +
-            "Digite 'Bearer' [espaço] e então seu token no campo abaixo.\r\n\r\n" +
+            "Digite 'Bearer' [espaï¿½o] e entï¿½o seu token no campo abaixo.\r\n\r\n" +
             "Exemplo (informar sem as aspas): 'Bearer 12345abcdef'",
         Name = "Authorization",
         In = ParameterLocation.Header,
@@ -88,10 +88,10 @@ if (app.Environment.IsDevelopment())
 
 app.Use(async (context, next) =>
 {
-    // Definindo o tipo de conteúdo padrão para application/json
+    // Definindo o tipo de conteÃºdo padrÃ£o para application/json
     context.Response.ContentType = "application/json";
 
-    // Chamada para o próximo middleware na pipeline
+    // Chamada para o prÃ³ximo middleware na pipeline
     await next();
 });
 
@@ -102,3 +102,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+// Make the implicit Program class public so test projects can access it
+public partial class Program { }

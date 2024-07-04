@@ -15,7 +15,7 @@ namespace Contatos.API.Tests.Controllers
 
         private readonly List<ContatoDtoResponse> _mockListaDeContatos = [
             new() {
-                Id = 1, Nome = "João",Email = "joao@test.com", Telefone = "995678721", DDD = 1,
+                Id = 1, Nome = "Joï¿½o",Email = "joao@test.com", Telefone = "995678721", DDD = 1,
                 Regiao = new()
                 {
                     DDD = 32,
@@ -30,7 +30,7 @@ namespace Contatos.API.Tests.Controllers
                 }
             },
             new() {
-                Id = 2, Nome = "José", Email = "jose@test.com", Telefone = "309882983", DDD = 3,
+                Id = 2, Nome = "Josï¿½", Email = "jose@test.com", Telefone = "309882983", DDD = 3,
                 Regiao = new Regiao(){
                     DDD = 11,
                     UF = "SP"
@@ -54,7 +54,7 @@ namespace Contatos.API.Tests.Controllers
 
             _mockContatoService
                 .Setup(x => x.RetornarListaDeContatos(null))
-                .Returns(Task.FromResult<Tuple<IEnumerable<Contato>, bool>>(new Tuple<IEnumerable<Contato>, bool>(contatos, false)));
+                .ReturnsAsync(new Tuple<IEnumerable<Contato>, bool>(contatos, false));
 
             // Act
             var result = await _contatoController.GetAll(null);

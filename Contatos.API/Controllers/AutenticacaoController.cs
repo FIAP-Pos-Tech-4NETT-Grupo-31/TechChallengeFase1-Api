@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Contatos.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class AutenticacaoController(ITokenService tokenService, ILoggerService loggerService) : ControllerBase
     {

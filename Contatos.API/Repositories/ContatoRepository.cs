@@ -1,10 +1,9 @@
 ﻿using System.Data;
 using Contatos.API.Interfaces;
 using Contatos.API.Models;
-using Dapper.Contrib.Extensions;
 using Dapper;
+using Dapper.Contrib.Extensions;
 using Microsoft.Extensions.Caching.Memory;
-using System.Collections.Generic;
 
 namespace Contatos.API.Repositories
 {

@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Net.Mime;
 using Contatos.API.Dto;
 using Contatos.API.Interfaces;
@@ -154,7 +154,6 @@ namespace Contatos.API.Controllers
                 _logger?.Error("ContatosController", $"Erro ao excluir contato '{id}' no banco!\n\n {e}");
                 return StatusCode(500);
             }
-            
         }
     }
 }

@@ -15,6 +15,11 @@ namespace Contatos.API.Services
             var logFilename = $"log_{DateTime.Now.ToString("yyyyMMdd")}.txt";
             var filePath = Path.Combine(Environment.CurrentDirectory, "Logs", logFilename);
 
+            if (!Directory.Exists(Path.Combine(Environment.CurrentDirectory, "Logs")))
+            {
+                Directory.CreateDirectory(Path.Combine(Environment.CurrentDirectory, "Logs"));
+            }
+
             if (!File.Exists(filePath))
             {
                 File.Create(filePath).Dispose();

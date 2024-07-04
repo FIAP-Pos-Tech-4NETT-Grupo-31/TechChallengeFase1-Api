@@ -4,7 +4,7 @@ using Dapper.Contrib.Extensions;
 
 namespace Contatos.API.Models
 {
-    [Table("Contatos")]
+    [Table("CONTATOS")]
     public record Contato
     {
         [Dapper.Contrib.Extensions.Key]

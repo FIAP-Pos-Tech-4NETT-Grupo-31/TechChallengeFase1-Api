@@ -4,7 +4,7 @@ using Contatos.API.Dto;
 
 namespace Contatos.API.Models
 {
-    [Table("Regioes")]
+    [Table("REGIOES")]
     public class Regiao
     {
         [Dapper.Contrib.Extensions.Key]
