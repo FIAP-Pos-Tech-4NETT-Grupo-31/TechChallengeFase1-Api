@@ -10,7 +10,7 @@ namespace Contatos.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
+    //[Authorize]
     public class RegioesController(IRegiaoService regiaoService, ILoggerService? loggerService) : ControllerBase
     {
         private readonly IRegiaoService _regiaoService = regiaoService;

@@ -8,6 +8,8 @@ using Microsoft.OpenApi.Models;
 using System.Data;
 using System.Reflection;
 using System.Text;
+using Prometheus;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -77,6 +79,9 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+
+builder.Services.UseHttpClientMetrics();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -100,6 +105,9 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMetricServer();
+app.UseHttpMetrics();
 
 app.Run();
 
