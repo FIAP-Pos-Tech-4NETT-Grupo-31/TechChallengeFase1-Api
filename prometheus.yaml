@@ -3,7 +3,7 @@ global:
 scrape_configs:
   - job_name: 'Contatos.API-read-prometheus'
     static_configs:
-    - targets: ['contatos.api:8080']
+    - targets: ['contatosapi:8080']
   - job_name: 'prometheus'
     static_configs:
     - targets: ['localhost:9090']

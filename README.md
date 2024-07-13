@@ -47,3 +47,15 @@ Para que possamos avaliar, esperamos um vídeo demonstrando os passos utilizados
 O foco principal é a qualidade do código, as boas práticas de desenvolvimento e o uso eficiente da plataforma .NET 8. Este desafio é uma oportunidade para demonstrar habilidades em persistência de dados, arquitetura de software e testes, além de boas práticas de desenvolvimento.
 
 Ficou com alguma dúvida? Não deixe de nos chamar no Discord para que alguém da equipe te ajude!
+
+
+### Grafana + Prometheus
+Para iniciar os containeres, abrir o terminal no diretório do projeto e digitar os comandos
+```
+docker compose build
+docker compose up
+```
+
+Com todos os containeres rodando, abrir o banco de dados e rodar o script inicial para ingestão de regiões.
+
+Na url, localhost:9090 é possível acessar o grafana e monitorar o dashboard criado.

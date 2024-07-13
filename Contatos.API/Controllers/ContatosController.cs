@@ -12,7 +12,7 @@ namespace Contatos.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
+    //[Authorize]
     public class ContatosController(IContatoService contatoService, ILoggerService? loggerService) : ControllerBase
     {
         private readonly IContatoService _contatoService = contatoService;

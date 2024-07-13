@@ -20,8 +20,15 @@ insert into dbo.Regioes values
 (21, 'RJ'),
 (27, 'ES'),
 (11, 'SP'),
-(31, 'MG');
+(31, 'MG'),
+(61, 'DF'),
+(66, 'MG'),
+(67, 'MS'),
+(82, 'AL'),
+(83, 'PB'),
+(41, 'PR'),
+(47, 'SC');
 
-
+delete from dbo.Regioes;
 
  
