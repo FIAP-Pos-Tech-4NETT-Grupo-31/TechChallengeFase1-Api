@@ -24,7 +24,15 @@ app.UseHttpsRedirection();
 
 app.MapPost("/contato", (ContatoDtoRequest contato) =>
 {
-    var factory = new ConnectionFactory() { HostName = "localhost", Port = 5672, Password = "jNw!4WSV2RRhmTz" };
+    var configuration = new ConfigurationBuilder()
+        .AddJsonFile("appsettings.json")
+        .Build();
+
+    var hostName = configuration["RabbitMQ:HostName"];
+    var port = Convert.ToInt32(configuration["RabbitMQ:Port"]);
+    var password = configuration["RabbitMQ:Password"];
+
+    var factory = new ConnectionFactory() { HostName = hostName, Port = port, Password = password };
     using (var connection = factory.CreateConnection())
     using (var channel = connection.CreateModel())
     {
