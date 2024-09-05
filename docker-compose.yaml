@@ -13,20 +13,20 @@ services:
       - mynw
 
 
-  contatosapi:
-    image: ${DOCKER_REGISTRY-}contatosapi
-    ports:
-      - 8080:8080
-    depends_on:
-      - sqlserver
-    build:
-      context: .
-      dockerfile: Contatos.API/dockerfile
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-    networks:
-      - mynw
+  # contatosapi:
+  #   image: ${DOCKER_REGISTRY-}contatosapi
+  #   ports:
+  #     - 8080:8080
+  #   depends_on:
+  #     - sqlserver
+  #   build:
+  #     context: .
+  #     dockerfile: Contatos.API/dockerfile
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ASPNETCORE_HTTP_PORTS=8080
+  #   networks:
+  #     - mynw
 
 
   prometheus:
@@ -54,5 +54,14 @@ services:
     networks:
       - mynw
   
+  
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - mynw
+    
 networks:
   mynw:
