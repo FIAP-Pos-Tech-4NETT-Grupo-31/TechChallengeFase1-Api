@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PersistenciaService.Models;
+using ConsultaService.Models;
 
-namespace PersistenciaService
+namespace ConsultaService
 {
     public class PersistenciaContext : DbContext
     {

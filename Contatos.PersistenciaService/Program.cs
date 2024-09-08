@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using PersistenciaService;
+using ConsultaService;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;

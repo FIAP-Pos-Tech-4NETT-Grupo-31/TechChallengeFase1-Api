@@ -2,9 +2,9 @@
 using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json;
-using PersistenciaService.Models;
+using ConsultaService.Models;
 
-namespace PersistenciaService
+namespace ConsultaService
 {
     public class ContatoConsumerService : BackgroundService
     {
