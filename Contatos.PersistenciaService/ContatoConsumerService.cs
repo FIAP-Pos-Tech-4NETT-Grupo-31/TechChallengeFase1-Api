@@ -9,15 +9,21 @@ namespace PersistenciaService
     public class ContatoConsumerService : BackgroundService
     {
         private readonly IServiceProvider _serviceProvider;
+        private readonly IConfiguration _configuration;
 
-        public ContatoConsumerService(IServiceProvider serviceProvider)
+        public ContatoConsumerService(IServiceProvider serviceProvider, IConfiguration configuration)
         {
             _serviceProvider = serviceProvider;
+            _configuration = configuration;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var factory = new ConnectionFactory() { HostName = "localhost", Port = 5672, Password = "jNw!4WSV2RRhmTz" };
+            var hostName = _configuration["RabbitMQ:HostName"];
+            var port = Convert.ToInt32(_configuration["RabbitMQ:Port"]);
+            var password = _configuration["RabbitMQ:Password"];
+            var factory = new ConnectionFactory() { HostName = hostName, Port = port, Password = password };
+
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {

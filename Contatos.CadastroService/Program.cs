@@ -11,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var configuration = builder.Configuration;
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,15 +26,11 @@ app.UseHttpsRedirection();
 
 app.MapPost("/contato", (ContatoDtoRequest contato) =>
 {
-    var configuration = new ConfigurationBuilder()
-        .AddJsonFile("appsettings.json")
-        .Build();
-
     var hostName = configuration["RabbitMQ:HostName"];
     var port = Convert.ToInt32(configuration["RabbitMQ:Port"]);
     var password = configuration["RabbitMQ:Password"];
-
     var factory = new ConnectionFactory() { HostName = hostName, Port = port, Password = password };
+
     using (var connection = factory.CreateConnection())
     using (var channel = connection.CreateModel())
     {
