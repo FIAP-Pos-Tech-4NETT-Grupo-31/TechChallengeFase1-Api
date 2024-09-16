@@ -1,22 +1,26 @@
-using Contatos.API.Interfaces;
-using Contatos.API.Repositories;
-using Contatos.API.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Data.SqlClient;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using System.Data;
 using System.Reflection;
 using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Prometheus;
-
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var configuration = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json")
-            .Build();
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 
+
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables();
+
+var configuration = builder.Configuration;
+
+builder.Services.AddSingleton<IConfiguration>(configuration);
 builder.Services.AddInfrastructure(configuration);
 
 var key = Encoding.ASCII.GetBytes(configuration.GetValue<string>("SecretJWT"));
@@ -39,7 +43,6 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -55,7 +58,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Description =
             "JWT Authorization Header - utilizado com Bearer Authentication.\r\n\r\n" +
-            "Digite 'Bearer' [espa�o] e ent�o seu token no campo abaixo.\r\n\r\n" +
+            "Digite 'Bearer' [espaço] e então seu token no campo abaixo.\r\n\r\n" +
             "Exemplo (informar sem as aspas): 'Bearer 12345abcdef'",
         Name = "Authorization",
         In = ParameterLocation.Header,
@@ -79,7 +82,6 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-
 builder.Services.UseHttpClientMetrics();
 
 var app = builder.Build();
@@ -101,15 +103,13 @@ app.Use(async (context, next) =>
 });
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.UseMetricServer();
 app.UseHttpMetrics();
-
+app.UseSerilogRequestLogging();
 app.Run();
 
-// Make the implicit Program class public so test projects can access it
+
 public partial class Program { }

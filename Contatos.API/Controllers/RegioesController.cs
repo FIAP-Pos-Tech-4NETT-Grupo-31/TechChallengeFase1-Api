@@ -10,7 +10,7 @@ namespace Contatos.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    //[Authorize]
+    [Authorize]
     public class RegioesController(IRegiaoService regiaoService, ILoggerService? loggerService) : ControllerBase
     {
         private readonly IRegiaoService _regiaoService = regiaoService;
@@ -26,11 +26,9 @@ namespace Contatos.API.Controllers
         {
             try
             {
-                var sw = Stopwatch.StartNew();
-
                 var regioes = await _regiaoService.RetornarListaDeRegioes();
                 var regioesDto = regioes.Item1.Select(regiao => (RegiaoDtoResponse)regiao);
-                _logger?.Info("RegioesController", $"As regiões foram buscadas no banco de dados com sucesso. A cache de memória {(regioes.Item2 ? "não " : "")}foi usada!", sw);
+                _logger?.Info("RegioesController", $"As regiões foram buscadas no banco de dados com sucesso. A cache de memória {(regioes.Item2 ? "não " : "")}foi usada!");
 
                 return Ok(regioesDto);
             } 

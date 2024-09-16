@@ -29,12 +29,10 @@ namespace Contatos.API.Controllers
         {
             try
             {
-                var sw = Stopwatch.StartNew();
-
                 var contatos = await _contatoService.RetornarListaDeContatos(ddd);
                 var contatosDto = contatos.Item1.Select(contato => (ContatoDtoResponse)contato);
 
-                _logger?.Info("ContatosController", $"Os contatos foram buscadas no banco de dados com sucesso. A cache de memória {(contatos.Item2 ? "" : "não ")}foi usada!", sw);
+                _logger?.Info("ContatosController", $"Os contatos foram buscadas no banco de dados com sucesso. A cache de memória {(contatos.Item2 ? "" : "não ")}foi usada!");
                 return Ok(contatosDto);
             }
             catch(Exception e)
@@ -56,10 +54,9 @@ namespace Contatos.API.Controllers
         {
             try
             {
-                var sw = Stopwatch.StartNew();
                 var contato = await _contatoService.RetornarContatoPeloId(id);
 
-                _logger?.Info("ContatosController", $"O contato de id = '{id}' foi buscado no banco de dados com sucesso.", sw);
+                _logger?.Info("ContatosController", $"O contato de id = '{id}' foi buscado no banco de dados com sucesso.");
                 return contato is not null ? Ok((ContatoDtoResponse)contato) : NotFound();
             }
             catch (Exception e)
@@ -79,20 +76,20 @@ namespace Contatos.API.Controllers
         [ProducesResponseType<ContatoDtoResponse>(200)]
         public async Task<IActionResult> Post([FromBody] ContatoDtoRequest contatoDto)
         {
-            try
-            {
-                var sw = Stopwatch.StartNew();
+            //try
+            //{
                 var contato = (Contato)contatoDto;
                 var novoContato = await _contatoService.InserirNovoContato(contato);
 
-                _logger?.Info("ContatosController", $"O contato de {contatoDto.Nome} foi adicionado no banco de dados com sucesso.", sw);
+                //_logger?.Info("ContatosController", $"O contato de {contatoDto.Nome} foi adicionado no banco de dados com sucesso.");
                 return Created(string.Empty, novoContato);
-            }
-            catch (Exception e)
-            {
-                _logger?.Error("ContatosController", $"Erro ao adicionar contato no banco!\n\n {e}");
-                return StatusCode(500);
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    _logger?.Error("ContatosController", $"Erro ao adicionar contato no banco!\n\n {e}");
+            //    //return StatusCode(500);
+            //    throw e;
+            //}
                 
         }
 
@@ -109,12 +106,11 @@ namespace Contatos.API.Controllers
         {
             try
             {
-                var sw = Stopwatch.StartNew();
                 var contato = (Contato)contatoDtoRequest;
                 contato.Id = id;
                 var atualizado = await _contatoService.AlterarContato(contato);
 
-                _logger?.Info("ContatosController", $"O contato de {contatoDtoRequest.Nome} foi atualizado no banco de dados com sucesso.", sw);
+                _logger?.Info("ContatosController", $"O contato de {contatoDtoRequest.Nome} foi atualizado no banco de dados com sucesso.");
                 return atualizado ? NoContent() : NotFound();
             }catch (Exception e)
             {
@@ -136,18 +132,17 @@ namespace Contatos.API.Controllers
         {
             try
             {
-                var sw = Stopwatch.StartNew();
                 var contato = await _contatoService.RetornarContatoPeloId(id);
 
                 if (contato is null)
                 {
-                    _logger?.Info("ContatosController", $"O contato '{id}' não foi encontrado no banco de dados.", sw);
+                    _logger?.Info("ContatosController", $"O contato '{id}' não foi encontrado no banco de dados.");
                     return NotFound();
                 }
 
                 await _contatoService.ExcluirContato(id);
 
-                _logger?.Info("ContatosController", $"O contato '{id}' foi excluído do banco de dados com sucesso.", sw);
+                _logger?.Info("ContatosController", $"O contato '{id}' foi excluído do banco de dados com sucesso.");
                 return NoContent();
             }catch(Exception e)
             {

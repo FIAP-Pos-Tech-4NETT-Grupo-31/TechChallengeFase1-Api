@@ -7,7 +7,7 @@ namespace Contatos.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    //[Authorize]
+    [Authorize]
     public class CacheController (ICacheService cacheService, ILoggerService logger) : ControllerBase
     {   
         private readonly ICacheService _cacheService = cacheService;

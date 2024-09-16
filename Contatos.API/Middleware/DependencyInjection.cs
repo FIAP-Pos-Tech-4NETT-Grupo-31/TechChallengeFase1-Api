@@ -4,6 +4,7 @@ using Contatos.API.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.Data;
 
 public static class DependecyInjection
@@ -11,7 +12,7 @@ public static class DependecyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services,
         IConfiguration configuration)
     {
-        var stringConexao = configuration.GetValue<string>("ConnectionString");
+        var stringConexao = configuration.GetConnectionString("DefaultConnection");       
         services.AddScoped<IDbConnection>((conexao) => new SqlConnection(stringConexao));
         services.AddScoped<IContatoRepository, ContatoRepository>();
         services.AddScoped<IContatoService, ContatoService>();

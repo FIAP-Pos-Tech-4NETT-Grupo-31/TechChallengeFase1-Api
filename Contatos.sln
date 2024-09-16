@@ -7,31 +7,43 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contatos.API.Unit.Tests", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contatos.API", "Contatos.API\Contatos.API.csproj", "{E1EF5AE5-AB07-4D96-9E2A-545B1BAD7231}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentos", "Documentos", "{147F991C-CA62-4B3E-B714-13214388A5DE}"
-	ProjectSection(SolutionItems) = preProject
-		Contatos.dacpac = Contatos.dacpac
-		README.md = README.md
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contatos.API.IntegrationTests", "Contatos.Integration.Tests\Contatos.API.IntegrationTests.csproj", "{6007D928-5B98-4E95-BA80-43F7465D767B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{90FA17B3-2CA5-4D52-AFFA-3ACB383336FB}"
 	ProjectSection(SolutionItems) = preProject
-		Contatos.dacpac = Contatos.dacpac
-		dashboard_grafana.json = dashboard_grafana.json
-		docker-compose.yaml = docker-compose.yaml
-		generate_dabatase.sql = generate_dabatase.sql
 		global.json = global.json
 		NUnit.runsettings = NUnit.runsettings
-		prometheus.yaml = prometheus.yaml
-		README.md = README.md
+		Solution Itens\README.md = Solution Itens\README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contatos.CadastroService", "Contatos.CadastroService\Contatos.CadastroService.csproj", "{D7F405F2-09A8-49CB-B895-93AE8B962C21}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contatos.PersistenciaService", "Contatos.PersistenciaService\Contatos.PersistenciaService.csproj", "{C2725F2D-814F-4723-B66A-1242B666E851}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contatos.ConsultaService", "Contatos.ConsultaService\Contatos.ConsultaService.csproj", "{D4842BE6-FE82-4E75-A6ED-B501BAC6E379}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contatos.ConsultaService", "Contatos.ConsultaService\Contatos.ConsultaService.csproj", "{D4842BE6-FE82-4E75-A6ED-B501BAC6E379}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dev-env", "dev-env", "{9065334F-49C3-4C93-8AF4-A116FFC08CF7}"
+	ProjectSection(SolutionItems) = preProject
+		Solution Itens\dev-env\docker-compose.yaml = Solution Itens\dev-env\docker-compose.yaml
+		Solution Itens\dev-env\prometheus.yaml = Solution Itens\dev-env\prometheus.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "prod-env", "prod-env", "{17309FE5-4BC1-4516-8677-DC379C55EC4F}"
+	ProjectSection(SolutionItems) = preProject
+		Solution Itens\prod-env\dashboard_grafana.json = Solution Itens\prod-env\dashboard_grafana.json
+		Solution Itens\prod-env\docker-compose.yaml = Solution Itens\prod-env\docker-compose.yaml
+		Solution Itens\prod-env\prometheus.yaml = Solution Itens\prod-env\prometheus.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dashboards", "dashboards", "{330206B2-7466-442B-A931-C90A00FC2854}"
+	ProjectSection(SolutionItems) = preProject
+		Solution Itens\dev-env\dashboards\dashboard-monitoramento-microservicos-contatos.json = Solution Itens\dev-env\dashboards\dashboard-monitoramento-microservicos-contatos.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{3DD615BC-ACA5-4CF9-9EDF-71D00DBEF969}"
+	ProjectSection(SolutionItems) = preProject
+		Solution Itens\dev-env\scripts\generate-database.sql = Solution Itens\dev-env\scripts\generate-database.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +78,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9065334F-49C3-4C93-8AF4-A116FFC08CF7} = {90FA17B3-2CA5-4D52-AFFA-3ACB383336FB}
+		{17309FE5-4BC1-4516-8677-DC379C55EC4F} = {90FA17B3-2CA5-4D52-AFFA-3ACB383336FB}
+		{330206B2-7466-442B-A931-C90A00FC2854} = {9065334F-49C3-4C93-8AF4-A116FFC08CF7}
+		{3DD615BC-ACA5-4CF9-9EDF-71D00DBEF969} = {9065334F-49C3-4C93-8AF4-A116FFC08CF7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5365B5E3-36C2-4463-841D-B15B4033C48E}

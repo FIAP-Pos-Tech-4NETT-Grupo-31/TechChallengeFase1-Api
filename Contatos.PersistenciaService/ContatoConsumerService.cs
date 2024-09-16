@@ -3,6 +3,8 @@ using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json;
 using ConsultaService.Models;
+using System.Diagnostics.Metrics;
+using Prometheus;
 
 namespace ConsultaService
 {
@@ -10,6 +12,7 @@ namespace ConsultaService
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly IConfiguration _configuration;
+        private readonly Counter _messageConsumeCounter = Metrics.CreateCounter("rabbitmq_message_consumed_total", "Total de mensagens consumidas da fila RabbitMQ.");
 
         public ContatoConsumerService(IServiceProvider serviceProvider, IConfiguration configuration)
         {
@@ -21,8 +24,14 @@ namespace ConsultaService
         {
             var hostName = _configuration["RabbitMQ:HostName"];
             var port = Convert.ToInt32(_configuration["RabbitMQ:Port"]);
+            var userName = _configuration["RabbitMQ:UserName"];
             var password = _configuration["RabbitMQ:Password"];
-            var factory = new ConnectionFactory() { HostName = hostName, Port = port, Password = password };
+            var factory = new ConnectionFactory() { 
+                HostName = hostName,
+                Port = port,
+                UserName = userName,
+                Password = password 
+            };
 
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
@@ -42,11 +51,16 @@ namespace ConsultaService
                         context.Contatos.Add(contato);
                         await context.SaveChangesAsync();
                     }
+
+                    _messageConsumeCounter.Inc();
                 };
 
                 channel.BasicConsume(queue: "contatoQueue", autoAck: true, consumer: consumer);
 
-                await Task.CompletedTask;
+                while (!stoppingToken.IsCancellationRequested)
+                {
+                    await Task.Delay(1000, stoppingToken); // Aguarda por 1 segundo antes de verificar novamente
+                }
             }
         }
     }
