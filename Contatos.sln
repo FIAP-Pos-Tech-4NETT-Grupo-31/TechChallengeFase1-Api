@@ -45,6 +45,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{3DD6
 		Solution Itens\dev-env\scripts\generate-database.sql = Solution Itens\dev-env\scripts\generate-database.sql
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dashboards", "dashboards", "{9BA1FDB8-8130-4851-A8FE-1B2C149A175E}"
+	ProjectSection(SolutionItems) = preProject
+		Solution Itens\prod-env\dashboards\dashboard-fiap fase 2 -postech.json = Solution Itens\prod-env\dashboards\dashboard-fiap fase 2 -postech.json
+		Solution Itens\prod-env\dashboards\dashboard-monitoramento-microservicos-contatos.json = Solution Itens\prod-env\dashboards\dashboard-monitoramento-microservicos-contatos.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{EDF7166B-F1A7-49C7-AF02-941E549F59D2}"
+	ProjectSection(SolutionItems) = preProject
+		Solution Itens\prod-env\scripts\generate-database.sql = Solution Itens\prod-env\scripts\generate-database.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,6 +95,8 @@ Global
 		{17309FE5-4BC1-4516-8677-DC379C55EC4F} = {90FA17B3-2CA5-4D52-AFFA-3ACB383336FB}
 		{330206B2-7466-442B-A931-C90A00FC2854} = {9065334F-49C3-4C93-8AF4-A116FFC08CF7}
 		{3DD615BC-ACA5-4CF9-9EDF-71D00DBEF969} = {9065334F-49C3-4C93-8AF4-A116FFC08CF7}
+		{9BA1FDB8-8130-4851-A8FE-1B2C149A175E} = {17309FE5-4BC1-4516-8677-DC379C55EC4F}
+		{EDF7166B-F1A7-49C7-AF02-941E549F59D2} = {17309FE5-4BC1-4516-8677-DC379C55EC4F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5365B5E3-36C2-4463-841D-B15B4033C48E}

@@ -1,9 +1,22 @@
 global:
   scrape_interval: 10s 
 scrape_configs:
-  - job_name: 'Contatos.API-read-prometheus'
+  - job_name: 'Contatos.API-read-http'
     static_configs:
-    - targets: ['contatosapi:8080']
+    - targets: ['contatos.api:8080']
+  
+  - job_name: 'Contatos.CadastroService-read-http'
+    static_configs:
+    - targets: ['contatos.cadastro-service:8080']  
+  
+  - job_name: 'Contatos.ConsultaService-read-http'
+    static_configs:
+    - targets: ['contatos.consulta-service:8080']  
+  
+  - job_name: 'Contatos.PersistenciaService-read-http'
+    static_configs:
+    - targets: ['contatos.persistencia-service:8080']
+  
   - job_name: 'prometheus'
     static_configs:
-    - targets: ['localhost:9090']
+    - targets: ['localhost:9090'] 
