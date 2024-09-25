@@ -17,6 +17,10 @@ scrape_configs:
     static_configs:
     - targets: ['host.docker.internal:5102']
   
+  - job_name: 'Contatos.ExclusaoService-read-http'
+    static_configs:
+    - targets: ['host.docker.internal:5087']  
+  
   - job_name: 'prometheus'
     static_configs:
     - targets: ['localhost:9090'] 

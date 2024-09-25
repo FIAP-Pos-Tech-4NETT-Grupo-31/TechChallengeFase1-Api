@@ -19,6 +19,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contatos.CadastroService", "Contatos.CadastroService\Contatos.CadastroService.csproj", "{D7F405F2-09A8-49CB-B895-93AE8B962C21}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contatos.PersistenciaService", "Contatos.PersistenciaService\Contatos.PersistenciaService.csproj", "{C2725F2D-814F-4723-B66A-1242B666E851}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D7F405F2-09A8-49CB-B895-93AE8B962C21} = {D7F405F2-09A8-49CB-B895-93AE8B962C21}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contatos.ConsultaService", "Contatos.ConsultaService\Contatos.ConsultaService.csproj", "{D4842BE6-FE82-4E75-A6ED-B501BAC6E379}"
 EndProject
@@ -56,6 +59,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{EDF7
 		Solution Itens\prod-env\scripts\generate-database.sql = Solution Itens\prod-env\scripts\generate-database.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contatos.ExclusaoService", "Contatos.ExclusaoService\Contatos.ExclusaoService.csproj", "{32EEEEDB-BF4F-4413-A5D0-19A9DA8966E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +91,10 @@ Global
 		{D4842BE6-FE82-4E75-A6ED-B501BAC6E379}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4842BE6-FE82-4E75-A6ED-B501BAC6E379}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4842BE6-FE82-4E75-A6ED-B501BAC6E379}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32EEEEDB-BF4F-4413-A5D0-19A9DA8966E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32EEEEDB-BF4F-4413-A5D0-19A9DA8966E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32EEEEDB-BF4F-4413-A5D0-19A9DA8966E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32EEEEDB-BF4F-4413-A5D0-19A9DA8966E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

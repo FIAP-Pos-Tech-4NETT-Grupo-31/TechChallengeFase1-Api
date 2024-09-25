@@ -177,4 +177,18 @@ services:
       - ASPNETCORE_ENVIRONMENT=Release
     networks:
       - network_contatos
+
+  contatos.exclusao-service:
+    image: ${DOCKER_REGISTRY-}contatos.exclusao-service
+    ports:
+      - 8084:8080
+    depends_on:
+      - sqlserver
+    build:
+      context: ../../Contatos.ExclusaoService/
+      dockerfile: dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Release
+    networks:
+      - network_contatos
        

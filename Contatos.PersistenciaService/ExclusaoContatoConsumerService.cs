@@ -8,13 +8,13 @@ using Prometheus;
 
 namespace ConsultaService
 {
-    public class ContatoConsumerService : BackgroundService
+    public class ExclusaoContatoConsumerService : BackgroundService
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly IConfiguration _configuration;
         private readonly Counter _messageConsumeCounter = Metrics.CreateCounter("rabbitmq_message_consumed_total", "Total de mensagens consumidas da fila RabbitMQ.");
 
-        public ContatoConsumerService(IServiceProvider serviceProvider, IConfiguration configuration)
+        public ExclusaoContatoConsumerService(IServiceProvider serviceProvider, IConfiguration configuration)
         {
             _serviceProvider = serviceProvider;
             _configuration = configuration;
@@ -36,29 +36,30 @@ namespace ConsultaService
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
-                channel.QueueDeclare(queue: "contatoQueue", durable: false, exclusive: false, autoDelete: false, arguments: null);
+                channel.QueueDeclare(queue: "exclusaoContatoQueue", durable: false, exclusive: false, autoDelete: false, arguments: null);
 
                 var consumer = new EventingBasicConsumer(channel);
                 consumer.Received += async (model, ea) =>
                 {
                     var body = ea.Body.ToArray();
                     var message = Encoding.UTF8.GetString(body);
-                    var contato = JsonSerializer.Deserialize<Contato>(message);
+                    var contatoId = JsonSerializer.Deserialize<ContatoId>(message);
 
                     using (var scope = _serviceProvider.CreateScope())
                     {
                         var context = scope.ServiceProvider.GetRequiredService<PersistenciaContext>();
+                        var contato = await context.Contatos.FindAsync(contatoId?.Id);
                         if (contato != null)
                         {
-                            context.Contatos.Add(contato);
+                            context.Contatos.Remove(contato);
                             await context.SaveChangesAsync();
-                        }
+                        }    
                     }
 
                     _messageConsumeCounter.Inc();
                 };
 
-                channel.BasicConsume(queue: "contatoQueue", autoAck: true, consumer: consumer);
+                channel.BasicConsume(queue: "exclusaoContatoQueue", autoAck: true, consumer: consumer);
 
                 while (!stoppingToken.IsCancellationRequested)
                 {
