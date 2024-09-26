@@ -15,7 +15,7 @@ namespace Contatos.API.IntegrationTests.Controllers
         private readonly dynamic _credencial = new
         {
             Username = "Grupo31",
-            Password = "Grupo31"
+            Password = "Grupo#31"
         };
 
         private readonly Contato _contato1 = new() { Nome = "Teste1", Email = "teste1@teste.com", DDD = 31, Telefone = "123456789" };
