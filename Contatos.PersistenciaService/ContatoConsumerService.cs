@@ -5,8 +5,6 @@ using System.Text.Json;
 using ConsultaService.Models;
 using System.Diagnostics.Metrics;
 using Prometheus;
-using Serilog;
-using Serilog.Events;
 
 namespace ConsultaService
 {

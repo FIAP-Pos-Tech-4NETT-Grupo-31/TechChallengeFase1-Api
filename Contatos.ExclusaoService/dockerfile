@@ -1,0 +1,25 @@
+# Base image for the runtime environment
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+EXPOSE 8084
+
+# Build image for compiling the code
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["./Contatos.ExclusaoService.csproj", "Contatos.ExclusaoService/"]
+RUN dotnet restore "./Contatos.ExclusaoService/Contatos.ExclusaoService.csproj"
+WORKDIR "/src/Contatos.ExclusaoService"
+COPY . .
+RUN dotnet build "./Contatos.ExclusaoService.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# Publish image for creating the final application
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./Contatos.ExclusaoService.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+# Final image for running the application
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "Contatos.ExclusaoService.dll"]

@@ -19,6 +19,7 @@ builder.Services.AddDbContext<PersistenciaContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddHostedService<ContatoConsumerService>();
+builder.Services.AddHostedService<ExclusaoContatoConsumerService>();
 
 var app = builder.Build();
 
