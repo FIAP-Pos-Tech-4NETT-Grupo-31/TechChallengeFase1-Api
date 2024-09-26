@@ -23,6 +23,14 @@ builder.Configuration
 
 var configuration = builder.Configuration;
 
+builder.Services.AddSingleton<IConnectionFactory>(sp =>
+{
+    var hostName = configuration["RabbitMQ:HostName"];
+    var port = Convert.ToInt32(configuration["RabbitMQ:Port"]);
+    var password = configuration["RabbitMQ:Password"];
+    return new ConnectionFactory() { HostName = hostName, Port = port, Password = password };
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -37,12 +45,11 @@ app.UseMetricServer();
 app.UseHttpMetrics();
 app.UseSerilogRequestLogging();
 
-app.MapPost("/Contatos", (ContatoDtoRequest contato) =>
+app.MapPost("/Contatos", (ContatoDtoRequest contato, IConnectionFactory factory) =>
 {
     var hostName = configuration["RabbitMQ:HostName"];
     var port = Convert.ToInt32(configuration["RabbitMQ:Port"]);
-    var password = configuration["RabbitMQ:Password"];
-    var factory = new ConnectionFactory() { HostName = hostName, Port = port, Password = password };
+    var password = configuration["RabbitMQ:Password"];    
 
     using (var connection = factory.CreateConnection())
     using (var channel = connection.CreateModel())
@@ -61,3 +68,4 @@ app.MapPost("/Contatos", (ContatoDtoRequest contato) =>
 
 app.Run();
 
+public partial class Program { }
