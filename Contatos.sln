@@ -20,6 +20,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contatos.CadastroService", "Contatos.CadastroService\Contatos.CadastroService.csproj", "{D7F405F2-09A8-49CB-B895-93AE8B962C21}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contatos.PersistenciaService", "Contatos.PersistenciaService\Contatos.PersistenciaService.csproj", "{C2725F2D-814F-4723-B66A-1242B666E851}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D7F405F2-09A8-49CB-B895-93AE8B962C21} = {D7F405F2-09A8-49CB-B895-93AE8B962C21}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contatos.ConsultaService", "Contatos.ConsultaService\Contatos.ConsultaService.csproj", "{D4842BE6-FE82-4E75-A6ED-B501BAC6E379}"
 EndProject
@@ -45,6 +48,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{3DD6
 	ProjectSection(SolutionItems) = preProject
 		Solution Itens\dev-env\scripts\generate-database.sql = Solution Itens\dev-env\scripts\generate-database.sql
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dashboards", "dashboards", "{9BA1FDB8-8130-4851-A8FE-1B2C149A175E}"
+	ProjectSection(SolutionItems) = preProject
+		Solution Itens\prod-env\dashboards\dashboard-fiap fase 2 -postech.json = Solution Itens\prod-env\dashboards\dashboard-fiap fase 2 -postech.json
+		Solution Itens\prod-env\dashboards\dashboard-monitoramento-microservicos-contatos.json = Solution Itens\prod-env\dashboards\dashboard-monitoramento-microservicos-contatos.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{EDF7166B-F1A7-49C7-AF02-941E549F59D2}"
+	ProjectSection(SolutionItems) = preProject
+		Solution Itens\prod-env\scripts\generate-database.sql = Solution Itens\prod-env\scripts\generate-database.sql
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contatos.CadastroService.Unit.Tests", "Contatos.CadastroService.Unit.Tests\Contatos.CadastroService.Unit.Tests.csproj", "{3842FAE4-988D-4E7E-8B0D-3B4BC3631C7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contatos.CadastroService.Integration.Tests", "Contatos.CadastroService.Integration.Tests\Contatos.CadastroService.Integration.Tests.csproj", "{D5CC9B5C-E0FD-4D05-9A40-7D183518A9BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contatos.ExclusaoService", "Contatos.ExclusaoService\Contatos.ExclusaoService.csproj", "{32EEEEDB-BF4F-4413-A5D0-19A9DA8966E4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contatos.AlteracaoService", "Contatos.AlteracaoService\Contatos.AlteracaoService.csproj", "{D71CE4E3-328E-447A-A2C8-D33F3BAEDA28}"
 EndProject
@@ -78,6 +98,18 @@ Global
 		{D4842BE6-FE82-4E75-A6ED-B501BAC6E379}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4842BE6-FE82-4E75-A6ED-B501BAC6E379}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4842BE6-FE82-4E75-A6ED-B501BAC6E379}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3842FAE4-988D-4E7E-8B0D-3B4BC3631C7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3842FAE4-988D-4E7E-8B0D-3B4BC3631C7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3842FAE4-988D-4E7E-8B0D-3B4BC3631C7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3842FAE4-988D-4E7E-8B0D-3B4BC3631C7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5CC9B5C-E0FD-4D05-9A40-7D183518A9BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5CC9B5C-E0FD-4D05-9A40-7D183518A9BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5CC9B5C-E0FD-4D05-9A40-7D183518A9BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5CC9B5C-E0FD-4D05-9A40-7D183518A9BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32EEEEDB-BF4F-4413-A5D0-19A9DA8966E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32EEEEDB-BF4F-4413-A5D0-19A9DA8966E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32EEEEDB-BF4F-4413-A5D0-19A9DA8966E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32EEEEDB-BF4F-4413-A5D0-19A9DA8966E4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D71CE4E3-328E-447A-A2C8-D33F3BAEDA28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D71CE4E3-328E-447A-A2C8-D33F3BAEDA28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D71CE4E3-328E-447A-A2C8-D33F3BAEDA28}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -91,6 +123,8 @@ Global
 		{17309FE5-4BC1-4516-8677-DC379C55EC4F} = {90FA17B3-2CA5-4D52-AFFA-3ACB383336FB}
 		{330206B2-7466-442B-A931-C90A00FC2854} = {9065334F-49C3-4C93-8AF4-A116FFC08CF7}
 		{3DD615BC-ACA5-4CF9-9EDF-71D00DBEF969} = {9065334F-49C3-4C93-8AF4-A116FFC08CF7}
+		{9BA1FDB8-8130-4851-A8FE-1B2C149A175E} = {17309FE5-4BC1-4516-8677-DC379C55EC4F}
+		{EDF7166B-F1A7-49C7-AF02-941E549F59D2} = {17309FE5-4BC1-4516-8677-DC379C55EC4F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5365B5E3-36C2-4463-841D-B15B4033C48E}

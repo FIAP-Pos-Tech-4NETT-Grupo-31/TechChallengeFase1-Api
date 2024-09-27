@@ -19,6 +19,10 @@ scrape_configs:
   
   - job_name: 'Contatos.ExclusaoService-read-http'
     static_configs:
+    - targets: ['host.docker.internal:5087']  
+  
+  - job_name: 'Contatos.AlteracaoService-read-http'
+    static_configs:
     - targets: ['host.docker.internal:5251']
 
   - job_name: 'prometheus'
