@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using ConsultaService;
 using Prometheus;
 using Serilog;
+using Contatos.PersistenciaService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,7 @@ builder.Services.AddDbContext<PersistenciaContext>(options =>
 
 builder.Services.AddHostedService<ContatoConsumerService>();
 builder.Services.AddHostedService<ExclusaoContatoConsumerService>();
+builder.Services.AddHostedService<AtualizaContatoConsumer>();
 
 var app = builder.Build();
 
