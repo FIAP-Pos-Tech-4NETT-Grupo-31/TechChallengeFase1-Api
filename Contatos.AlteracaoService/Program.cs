@@ -2,8 +2,14 @@ using RabbitMQ.Client;
 using System.Text.Json;
 using System.Text;
 using Contatos.AlteracaoService.Dto;
+using Prometheus;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+var messageProducerCounter = Metrics.CreateCounter("rabbitmq_message_produced_total", "Total de mensagens enviadas para fila RabbitMQ.");
+
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -17,12 +23,12 @@ var configuration = builder.Configuration;
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
+app.UseMetricServer();
+app.UseHttpMetrics();
+app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 
 app.MapPost("/AtualizaContato", (int id, ContatoDtoRequest contatoDto) => 
@@ -49,6 +55,7 @@ app.MapPost("/AtualizaContato", (int id, ContatoDtoRequest contatoDto) =>
         var message = JsonSerializer.Serialize(contatoDtoResponse);
         var body = Encoding.UTF8.GetBytes(message);
         channel.BasicPublish(exchange: "", routingKey: "AtualizaContatoQueue", basicProperties: null, body: body);
+        messageProducerCounter.Inc();
     }
 
     return "Contato Atualizado"; 
