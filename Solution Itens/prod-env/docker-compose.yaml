@@ -191,4 +191,18 @@ services:
       - ASPNETCORE_ENVIRONMENT=Release
     networks:
       - network_contatos
+
+  contatos.alteracao-service:
+    image: ${DOCKER_REGISTRY-}contatos.alteracao-service
+    ports:
+      - 8085:8080
+    depends_on:
+      - sqlserver
+    build:
+      context: ../../Contatos.AlteracaoService/
+      dockerfile: dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Release
+    networks:
+      - network_contatos
        

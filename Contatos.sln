@@ -33,7 +33,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dev-env", "dev-env", "{9065
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "prod-env", "prod-env", "{17309FE5-4BC1-4516-8677-DC379C55EC4F}"
 	ProjectSection(SolutionItems) = preProject
-		Solution Itens\prod-env\dashboard_grafana.json = Solution Itens\prod-env\dashboard_grafana.json
 		Solution Itens\prod-env\docker-compose.yaml = Solution Itens\prod-env\docker-compose.yaml
 		Solution Itens\prod-env\prometheus.yaml = Solution Itens\prod-env\prometheus.yaml
 	EndProjectSection

@@ -21,6 +21,10 @@ scrape_configs:
     static_configs:
     - targets: ['contatos.exclusao-service:8080']  
   
+  - job_name: 'Contatos.AlteracaoService-read-http'
+    static_configs:
+    - targets: ['contatos.alteracao-service:8080'] 
+  
   - job_name: 'prometheus'
     static_configs:
     - targets: ['localhost:9090'] 
