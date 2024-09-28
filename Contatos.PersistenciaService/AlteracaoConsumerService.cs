@@ -36,44 +36,45 @@ namespace Contatos.PersistenciaService
                 Password = password
             };
 
-            while (!stoppingToken.IsCancellationRequested)
+
+            using (var connection = factory.CreateConnection())
+            using (var channel = connection.CreateModel())
             {
+                channel.QueueDeclare(queue: "alteracaoQueue", durable: true, exclusive: false, autoDelete: false, arguments: null);
+
+                var consumer = new EventingBasicConsumer(channel);
+                consumer.Received += async (model, ea) =>
+                {
+                    var body = ea.Body.ToArray();
+                    var message = Encoding.UTF8.GetString(body);
+                    var contato = JsonSerializer.Deserialize<Contato>(message);
+
+                    using (var scope = _serviceProvider.CreateScope())
+                    {
+                        var context = scope.ServiceProvider.GetRequiredService<PersistenciaContext>();
+                        if (contato != null)
+                        {
+                            context.Contatos.Update(contato);
+                            await context.SaveChangesAsync();
+                        }
+                    }
+
+                    _messageConsumeCounter.Inc();
+                };
+
                 try
                 {
-                    using (var connection = factory.CreateConnection())
-                    using (var channel = connection.CreateModel())
-                    {
-                        channel.QueueDeclare(queue: "alteracaoQueue", durable: true, exclusive: false, autoDelete: false, arguments: null);
-
-                        var consumer = new EventingBasicConsumer(channel);
-                        consumer.Received += async (model, ea) =>
-                        {
-                            var body = ea.Body.ToArray();
-                            var message = Encoding.UTF8.GetString(body);
-                            var contato = JsonSerializer.Deserialize<Contato>(message);
-
-                            using (var scope = _serviceProvider.CreateScope())
-                            {
-                                var context = scope.ServiceProvider.GetRequiredService<PersistenciaContext>();
-                                if (contato != null)
-                                {
-                                    context.Contatos.Update(contato);
-                                    await context.SaveChangesAsync();
-                                }
-                            }
-
-                            _messageConsumeCounter.Inc();
-                        };
-
-                        channel.BasicConsume(queue: "alteracaoQueue", autoAck: true, consumer: consumer);
-                    }
+                    channel.BasicConsume(queue: "alteracaoQueue", autoAck: true, consumer: consumer);
                 }
                 catch (Exception ex)
                 {
                     Log.Write(LogEventLevel.Error, $"Erro ao consumir mensagem da fila RabbitMQ: {ex.Message}");
                 }
 
-                await Task.Delay(1000, stoppingToken); // Aguarda por 1 segundo antes de verificar novamente
+                while (!stoppingToken.IsCancellationRequested)
+                {
+                    await Task.Delay(1000, stoppingToken); // Aguarda por 1 segundo antes de verificar novamente
+                }
             }
         }
     }
