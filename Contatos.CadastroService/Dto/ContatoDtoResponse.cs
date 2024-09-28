@@ -1,6 +1,6 @@
 ﻿using Contatos.CadastroService.Interfaces;
 
-namespace Contatos.CadastroService.Dto
+namespace Contatos.InclusaoService.Dto
 {
     public record ContatoDtoResponse: IContatoDto
     {

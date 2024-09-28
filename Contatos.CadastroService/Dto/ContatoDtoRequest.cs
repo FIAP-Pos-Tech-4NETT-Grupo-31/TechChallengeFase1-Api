@@ -1,4 +1,4 @@
-﻿namespace Contatos.CadastroService.Dto
+﻿namespace Contatos.InclusaoService.Dto
 {
     public record ContatoDtoRequest
     {   

@@ -41,7 +41,7 @@ app.MapPost("/AtualizaContato", (int id, ContatoDtoRequest contatoDto) =>
     using (var connection = factory.CreateConnection())
     using (var channel = connection.CreateModel())
     {
-        channel.QueueDeclare(queue: "AtualizaContatoQueue", durable: true, exclusive: false, autoDelete: false, arguments: null);
+        channel.QueueDeclare(queue: "alteracaoQueue", durable: true, exclusive: false, autoDelete: false, arguments: null);
 
         var contatoDtoResponse = new ContatoDtoResponse()
         {
@@ -54,11 +54,11 @@ app.MapPost("/AtualizaContato", (int id, ContatoDtoRequest contatoDto) =>
 
         var message = JsonSerializer.Serialize(contatoDtoResponse);
         var body = Encoding.UTF8.GetBytes(message);
-        channel.BasicPublish(exchange: "", routingKey: "AtualizaContatoQueue", basicProperties: null, body: body);
+        channel.BasicPublish(exchange: "", routingKey: "alteracaoQueue", basicProperties: null, body: body);
         messageProducerCounter.Inc();
     }
 
-    return "Contato Atualizado"; 
+    return "Nova alteracao de contato enviada para RabbitMQ";
 })
 .WithName("AtualizaContato")
 .WithOpenApi();

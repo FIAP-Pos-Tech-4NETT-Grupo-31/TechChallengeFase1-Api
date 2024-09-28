@@ -8,13 +8,13 @@ using Prometheus;
 
 namespace ConsultaService
 {
-    public class ExclusaoContatoConsumerService : BackgroundService
+    public class ExclusaoConsumerService : BackgroundService
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly IConfiguration _configuration;
         private readonly Counter _messageConsumeCounter = Metrics.CreateCounter("rabbitmq_message_consumed_total", "Total de mensagens consumidas da fila RabbitMQ.");
 
-        public ExclusaoContatoConsumerService(IServiceProvider serviceProvider, IConfiguration configuration)
+        public ExclusaoConsumerService(IServiceProvider serviceProvider, IConfiguration configuration)
         {
             _serviceProvider = serviceProvider;
             _configuration = configuration;
@@ -36,7 +36,7 @@ namespace ConsultaService
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
-                channel.QueueDeclare(queue: "exclusaoContatoQueue", durable: false, exclusive: false, autoDelete: false, arguments: null);
+                channel.QueueDeclare(queue: "exclusaoQueue", durable: false, exclusive: false, autoDelete: false, arguments: null);
 
                 var consumer = new EventingBasicConsumer(channel);
                 consumer.Received += async (model, ea) =>
@@ -59,7 +59,7 @@ namespace ConsultaService
                     _messageConsumeCounter.Inc();
                 };
 
-                channel.BasicConsume(queue: "exclusaoContatoQueue", autoAck: true, consumer: consumer);
+                channel.BasicConsume(queue: "exclusaoQueue", autoAck: true, consumer: consumer);
 
                 while (!stoppingToken.IsCancellationRequested)
                 {

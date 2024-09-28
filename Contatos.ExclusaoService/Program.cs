@@ -48,10 +48,10 @@ app.MapDelete("/ExclusaoContato", ([FromBody] ExclusaoContatoDtoRequest contato)
     using (var connection = factory.CreateConnection())
     using (var channel = connection.CreateModel())
     {
-        channel.QueueDeclare(queue: "exclusaoContatoQueue", durable: false, exclusive: false, autoDelete: false, arguments: null);
+        channel.QueueDeclare(queue: "exclusaoQueue", durable: false, exclusive: false, autoDelete: false, arguments: null);
         var message = JsonSerializer.Serialize(contato);
         var body = Encoding.UTF8.GetBytes(message);
-        channel.BasicPublish(exchange: "", routingKey: "exclusaoContatoQueue", basicProperties: null, body: body);
+        channel.BasicPublish(exchange: "", routingKey: "exclusaoQueue", basicProperties: null, body: body);
         messageProducerCounter.Inc();
     }
 

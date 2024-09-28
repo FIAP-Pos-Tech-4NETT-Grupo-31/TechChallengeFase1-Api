@@ -19,9 +19,9 @@ var configuration = builder.Configuration;
 builder.Services.AddDbContext<PersistenciaContext>(options => 
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddHostedService<ContatoConsumerService>();
-builder.Services.AddHostedService<ExclusaoContatoConsumerService>();
-builder.Services.AddHostedService<AtualizaContatoConsumer>();
+builder.Services.AddHostedService<InclusaoConsumerService>();
+builder.Services.AddHostedService<ExclusaoConsumerService>();
+builder.Services.AddHostedService<AlteracaoConsumerService>();
 
 var app = builder.Build();
 

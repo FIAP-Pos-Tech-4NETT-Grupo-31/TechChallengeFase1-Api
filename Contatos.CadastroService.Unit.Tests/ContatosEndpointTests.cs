@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
 using NUnit.Framework;
 using RabbitMQ.Client;
-using Contatos.CadastroService.Dto;
+using Contatos.InclusaoService.Dto;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Contatos.CadastroService.Unit.Tests
