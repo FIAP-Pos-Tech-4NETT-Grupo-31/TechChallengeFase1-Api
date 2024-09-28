@@ -1,60 +1,25 @@
 ﻿
 using Contatos.API.Interfaces;
 using System.Reflection.PortableExecutable;
-using System;
-using static System.Net.Mime.MediaTypeNames;
-using System.Diagnostics;
+using Serilog;
 
 namespace Contatos.API.Services
 {
     public class LoggerService : ILoggerService
     {
-        private readonly string FilePath;
-        public LoggerService() 
+          public void Error(string header, string message)
         {
-            var logFilename = $"log_{DateTime.Now.ToString("yyyyMMdd")}.txt";
-            var filePath = Path.Combine(Environment.CurrentDirectory, "Logs", logFilename);
-
-            if (!Directory.Exists(Path.Combine(Environment.CurrentDirectory, "Logs")))
-            {
-                Directory.CreateDirectory(Path.Combine(Environment.CurrentDirectory, "Logs"));
-            }
-
-            if (!File.Exists(filePath))
-            {
-                File.Create(filePath).Dispose();
-            }
-
-            FilePath = filePath;
+            Log.Error($"{header} - {message}");
         }
 
-        public void Error(string header, string message, Stopwatch? sw = null)
+        public void Info(string header, string message)
         {
-            this.LogFileWrite("ERROR", header, message, sw);
+            Log.Information($"{header} - {message}");
         }
 
-        public void Info(string header, string message, Stopwatch? sw = null)
+        public void Warn(string header, string message)
         {
-            this.LogFileWrite("INFO", header, message, sw);
-
-        }
-
-        public void Warn(string header, string message, Stopwatch? sw = null)
-        {
-            this.LogFileWrite("WARN", header, message, sw);
-        }
-
-        private void LogFileWrite(string logLevel, string header, string message, Stopwatch? sw = null)
-        {
-            if (sw != null)
-                sw.Stop();
-
-            var datetime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-            var stopWatchMessage = sw != null ? $"| {sw.ElapsedMilliseconds} milissegundos ".PadRight(25, ' ') : "";
-            var text = $"{logLevel.PadRight(5, ' ')}| {header.PadRight(20, ' ')} {stopWatchMessage}| {datetime.PadRight(20, ' ')} | {message}";
-
-            using (StreamWriter w = File.AppendText(this.FilePath))
-                w.WriteLine(text);
+            Log.Information($"{header} - {message}");
         }
     }
 }

@@ -1,9 +1,0 @@
-global:
-  scrape_interval:     10s 
-scrape_configs:
-  - job_name: 'Contatos.API-read-prometheus'
-    static_configs:
-    - targets: ['contatosapi:8080']
-  - job_name: 'prometheus'
-    static_configs:
-    - targets: ['localhost:9090']

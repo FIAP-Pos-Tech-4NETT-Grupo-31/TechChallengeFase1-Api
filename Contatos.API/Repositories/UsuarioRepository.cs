@@ -8,7 +8,7 @@ namespace Contatos.API.Repositories
         public UsuarioRepository()
         {
             ListaUsuario.Usuarios = new List<Usuario>();
-            ListaUsuario.Usuarios.Add(new Usuario { Id = 1, Username = "Grupo31", Password = "Grupo31" });
+            ListaUsuario.Usuarios.Add(new Usuario { Id = 1, Username = "Grupo31", Password = "Grupo#31" });
             ListaUsuario.Usuarios.Add(new Usuario { Id = 2, Username = "Userteste", Password = "Senha@123&Teste@!" });
         }
 

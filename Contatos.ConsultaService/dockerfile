@@ -1,0 +1,25 @@
+# Base image for the runtime environment
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+EXPOSE 8082
+
+# Build image for compiling the code
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["./Contatos.ConsultaService.csproj", "Contatos.ConsultaService/"]
+RUN dotnet restore "./Contatos.ConsultaService/Contatos.ConsultaService.csproj"
+WORKDIR "/src/Contatos.ConsultaService"
+COPY . .
+RUN dotnet build "./Contatos.ConsultaService.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# Publish image for creating the final application
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./Contatos.ConsultaService.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+# Final image for running the application
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "Contatos.ConsultaService.dll"]
