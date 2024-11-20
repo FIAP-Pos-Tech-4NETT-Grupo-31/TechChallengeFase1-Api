@@ -29,4 +29,7 @@ app.UseMetricServer();
 app.UseHttpMetrics();
 app.UseSerilogRequestLogging();
 
+app.MapGet("/", () => Results.Ok(new { Message = "Serviço Contatos.PersistenciaService em execução!", Status = true }));
+
+
 app.Run();

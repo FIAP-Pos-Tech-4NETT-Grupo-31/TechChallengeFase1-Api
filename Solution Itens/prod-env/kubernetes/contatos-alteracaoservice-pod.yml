@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: contatos-alteracaoservice-pod
+  labels: # Definição de rótulos
+    app: contatos-app
+    env: production
+    group: servicos-de-api
+  annotations: # Definição de anotações
+    description: "Este pod é usado para o microsserviço de alteração de contato"
+    url: "http://localhost:31083/"
+spec:
+  containers:
+    - name: contatos-alteracaoservice-container
+      image: rodrigocezarleao/contatos.alteracaoservice:v1
+      ports:
+        - containerPort: 8080 # Porta exposta pelo container

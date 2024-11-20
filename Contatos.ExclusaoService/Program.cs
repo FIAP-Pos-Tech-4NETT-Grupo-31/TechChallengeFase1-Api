@@ -38,6 +38,8 @@ app.UseMetricServer();
 app.UseHttpMetrics();
 app.UseSerilogRequestLogging();
 
+app.MapGet("/", () => Results.Ok(new { Message = "Serviço Contatos.ExclusaoService em execução!", Status = true }));
+
 app.MapDelete("/ExclusaoContato", ([FromBody] ExclusaoContatoDtoRequest contato) =>
 {
     var hostName = configuration["RabbitMQ:HostName"];

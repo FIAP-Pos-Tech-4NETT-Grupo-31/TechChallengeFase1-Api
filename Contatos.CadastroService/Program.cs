@@ -45,6 +45,8 @@ app.UseMetricServer();
 app.UseHttpMetrics();
 app.UseSerilogRequestLogging();
 
+app.MapGet("/", () => Results.Ok(new { Message = "Serviço Contatos.InclusaoService em execução!", Status = true }));
+
 app.MapPost("/Contatos", (ContatoDtoRequest contato, IConnectionFactory factory) =>
 {
     var hostName = configuration["RabbitMQ:HostName"];

@@ -37,6 +37,8 @@ app.UseMetricServer();
 app.UseHttpMetrics();
 app.UseSerilogRequestLogging();
 
+app.MapGet("/", () => Results.Ok(new { Message = "Serviço Contatos.ConsultaService em execução!", Status = true }));
+
 app.MapGet("/Contatos", async (DbContextContatos dbContext) =>
 {
     var contatos = await dbContext.Contatos.ToListAsync();

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: contatos-consultaservice-svc
+  labels: # Definição de rótulos
+    app: contatos-app
+    env: production
+    group: servicos-de-api
+  annotations: # Definição de anotações
+    description: "Este service é usado para o microsserviço de consulta de contato"
+    url: "http://localhost:31082/"
+spec:
+  selector:
+    app: contatos-app
+  ports:
+    - protocol: TCP
+      port: 8082         # Porta interna que o Service expõe dentro do cluster
+      targetPort: 8080   # Porta interna do container (a mesma da API)
+      nodePort: 31082    # Porta no nó do Kubernetes para acesso externo (fora do cluster)
+  type: NodePort        # Tipo de Service para expor a aplicação externamente

@@ -31,6 +31,8 @@ app.UseHttpMetrics();
 app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 
+app.MapGet("/", () => Results.Ok(new { Message = "Serviço Contatos.AlteracaoService em execução!", Status = true }));
+
 app.MapPost("/AtualizaContato", (int id, ContatoDtoRequest contatoDto) => 
 {
     var hostName = configuration["RabbitMQ:HostName"];

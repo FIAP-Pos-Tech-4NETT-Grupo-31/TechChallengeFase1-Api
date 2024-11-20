@@ -7,19 +7,19 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["./Contatos.CadastroService.csproj", "Contatos.CadastroService/"]
-RUN dotnet restore "./Contatos.CadastroService/Contatos.CadastroService.csproj"
-WORKDIR "/src/Contatos.CadastroService"
+COPY ["./Contatos.InclusaoService.csproj", "Contatos.InclusaoService/"]
+RUN dotnet restore "./Contatos.InclusaoService/Contatos.InclusaoService.csproj"
+WORKDIR "/src/Contatos.InclusaoService"
 COPY . .
-RUN dotnet build "./Contatos.CadastroService.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./Contatos.InclusaoService.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Publish image for creating the final application
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Contatos.CadastroService.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Contatos.InclusaoService.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Final image for running the application
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Contatos.CadastroService.dll"]
+ENTRYPOINT ["dotnet", "Contatos.InclusaoService.dll"]
