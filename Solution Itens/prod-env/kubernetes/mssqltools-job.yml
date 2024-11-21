@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mssqltools
+  labels: # Definição de rótulos
+    app: contatos-app
+    env: production
+    group: servicos-gerais
+    ms: mssqltools
+  annotations: # Definição de anotações
+    description: "Este job é usado para inicializar o banco de dados (migration)"
+spec:
+  template:
+    spec:
+      containers:
+      - name: mssqltools
+        image: mcr.microsoft.com/mssql-tools
+        command:
+        - /bin/bash
+        - -c
+        - |
+          sleep 20s
+          /opt/mssql-tools/bin/sqlcmd -S sqlserver -U SA -P Grupo#31 -d master -i /scripts/generate-database.sql
+        volumeMounts:
+        - name: scripts
+          mountPath: ../scripts
+      restartPolicy: Never
+      volumes:
+      - name: scripts
+        hostPath:
+          #aqui tem um problema de colocar o caminho absoluto da máquina para o script sql
+          path: ./
+  backoffLimit: 4

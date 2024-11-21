@@ -6,6 +6,7 @@ metadata:
     app: contatos-app
     env: production
     group: servicos-de-api
+    ms: exclusaoservice
   annotations: # Definição de anotações
     description: "Este pod é usado para o microsserviço de exclusão de contato"
     url: "http://localhost:31084/"

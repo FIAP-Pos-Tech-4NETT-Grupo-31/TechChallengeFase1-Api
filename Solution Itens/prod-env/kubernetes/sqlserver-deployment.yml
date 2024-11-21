@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sqlserver-deployment
+  labels: # Definição de rótulos
+    app: contatos-app
+    env: production
+    group: servicos-gerais
+    ms: sqlserver
+  annotations: # Definição de anotações
+    description: "Este deployment é usado para o banco de dados"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sqlserver
+  template:
+    metadata:
+      labels:
+        app: sqlserver
+    spec:
+      containers:
+      - name: sqlserver
+        image: mcr.microsoft.com/azure-sql-edge
+        ports:
+        - containerPort: 1433
+        env:
+        - name: MSSQL_SA_PASSWORD
+          value: "Grupo#31"
+        - name: ACCEPT_EULA
+          value: "1"
+        - name: MSSQL_PID
+          value: "Developer"

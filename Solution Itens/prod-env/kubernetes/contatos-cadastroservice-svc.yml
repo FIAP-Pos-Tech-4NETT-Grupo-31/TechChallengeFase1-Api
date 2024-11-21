@@ -6,6 +6,7 @@ metadata:
     app: contatos-app
     env: production
     group: servicos-de-api
+    ms: cadastroservice
   annotations: # Definição de anotações
     description: "Este service é usado para o microsserviço de inclusão de contato"
     url: "http://localhost:31081/"
