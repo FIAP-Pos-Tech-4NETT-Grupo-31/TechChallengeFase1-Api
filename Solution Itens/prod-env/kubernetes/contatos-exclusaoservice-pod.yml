@@ -13,6 +13,6 @@ metadata:
 spec:
   containers:
     - name: contatos-exclusaoservice-container
-      image: rodrigocezarleao/contatos.exclusaoservice:v1
+      image: rodrigocezarleao/contatos.exclusaoservice:v2
       ports:
         - containerPort: 8080 # Porta exposta pelo container

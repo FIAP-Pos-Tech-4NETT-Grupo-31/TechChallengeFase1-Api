@@ -13,6 +13,6 @@ metadata:
 spec:
   containers:
     - name: contatos-alteracaoservice-container
-      image: rodrigocezarleao/contatos.alteracaoservice:v1
+      image: rodrigocezarleao/contatos.alteracaoservice:v2
       ports:
         - containerPort: 8080 # Porta exposta pelo container

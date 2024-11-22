@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-svc
+  labels:
+    app: rabbitmq
+spec:
+  selector:
+    app: contatos-app  # tem que ser o mesmo das apis
+  ports:
+  - name: amqp
+    port: 5672         # Porta acessada pelo Service
+    targetPort: 5672   # Porta do Pod
+    nodePort: 31671    # Porta no nó do Kubernetes para acesso externo (fora do cluster)
+  - name: management
+    port: 15672        # Porta acessada pelo Service
+    targetPort: 15672  # Porta do Pod
+    nodePort: 31672    # Porta no nó do Kubernetes para acesso externo (fora do cluster)
+  type: NodePort # Permite acesso externo ao cluster

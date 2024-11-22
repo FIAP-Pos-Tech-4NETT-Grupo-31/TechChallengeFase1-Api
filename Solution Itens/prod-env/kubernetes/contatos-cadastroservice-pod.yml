@@ -13,6 +13,6 @@ metadata:
 spec:
   containers:
     - name: contatos-cadastroservice-container
-      image: rodrigocezarleao/contatos.inclusaoservice:v1
+      image: rodrigocezarleao/contatos.inclusaoservice:v2
       ports:
         - containerPort: 8080 # Porta exposta pelo container

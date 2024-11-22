@@ -2,25 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sqlserver-deployment
-  labels: # Definição de rótulos
+  labels:
     app: contatos-app
     env: production
     group: servicos-gerais
     ms: sqlserver
-  annotations: # Definição de anotações
+  annotations:
     description: "Este deployment é usado para o banco de dados"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sqlserver
+      app: contatos-app
   template:
     metadata:
       labels:
-        app: sqlserver
+        app: contatos-app
     spec:
-      selector:
-        app: contatos-app  # tem que ser o mesmo das apis
       containers:
       - name: sqlserver
         image: mcr.microsoft.com/azure-sql-edge

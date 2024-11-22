@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-deployment
+  labels: # Definição de rótulos
+    app: contatos-app
+    env: production
+    group: servicos-gerais
+    ms: rabbitmq
+  annotations: # Definição de anotações
+    description: "Este deployment é usado para o rabbit mq"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      selector:
+        app: contatos-app  # tem que ser o mesmo das apis
+      containers:
+      - name: rabbitmq
+        image: rabbitmq:3-management 
+        ports:
+        - containerPort: 5672 #AMPQ
+        - containerPort: 15672 #Interface de gerenciamento
+        env:
+        - name: RABBITMQ_DEFAULT_PASS
+          value: "Grupo#31"
