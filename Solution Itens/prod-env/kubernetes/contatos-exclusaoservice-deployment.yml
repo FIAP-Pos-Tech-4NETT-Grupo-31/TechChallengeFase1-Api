@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contatos-exclusaoservice-deployment
+  labels:
+    app: arquivo-exclusaoservice-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: contatos-app
+  template:
+    metadata:
+      labels:
+        app: contatos-app
+    spec:
+      containers:
+    - name: contatos-exclusaoservice-container
+      image: rodrigocezarleao/contatos.exclusaoservice:v2
+        ports:
+        - containerPort: 8080

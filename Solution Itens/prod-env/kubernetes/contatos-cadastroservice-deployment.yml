@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contatos-cadastroservice-deployment
+  labels: 
+    app: arquivo-cadastroservice-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: contatos-app
+  template:
+    metadata:
+      labels:
+        app: contatos-app
+    spec:
+      containers:
+    - name: contatos-cadastroservice-container
+      image: rodrigocezarleao/contatos.inclusaoservice:v2
+        ports:
+        - containerPort: 8080

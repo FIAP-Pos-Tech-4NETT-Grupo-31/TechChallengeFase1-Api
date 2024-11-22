@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contatos-consultaservice-deployment
+  labels:
+    app: arquivo-consultaservice-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: contatos-app
+  template:
+    metadata:
+      labels:
+        app: contatos-app
+    spec:
+      containers:
+      - name: contatos-consultaservice-container
+        image: rodrigocezarleao/contatos.consultaservice:v2
+        ports:
+        - containerPort: 8080
