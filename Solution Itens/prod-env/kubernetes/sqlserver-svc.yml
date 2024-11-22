@@ -11,7 +11,7 @@ metadata:
     description: "Este service é usado para o banco de dados"
 spec:
   selector:
-    app: sqlserver
+    app: contatos-app    # tem que ser o mesmo das apis
   ports:
     - protocol: TCP
       port: 1433        # Porta do Service

@@ -19,6 +19,8 @@ spec:
       labels:
         app: sqlserver
     spec:
+      selector:
+        app: contatos-app  # tem que ser o mesmo das apis
       containers:
       - name: sqlserver
         image: mcr.microsoft.com/azure-sql-edge

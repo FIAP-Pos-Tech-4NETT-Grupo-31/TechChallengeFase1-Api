@@ -13,17 +13,6 @@ metadata:
 spec:
   containers:
     - name: contatos-consultaservice-container
-      image: rodrigocezarleao/contatos.consultaservice:v1
-      env:
-        - name: SQLSERVER_HOST
-          value: "sqlserver"  # Nome do serviço do SQL Server
-        - name: SQLSERVER_PORT
-          value: "1433"      # Porta do SQL Server
-        - name: SQLSERVER_USER
-          value: "SA"        # Usuário do SQL Server
-        - name: SQLSERVER_PASSWORD
-          value: "Grupo#31"  # Senha do SQL Server
-        - name: SQLSERVER_DB
-          value: "Contatos"    # Nome do banco de dados
+      image: rodrigocezarleao/contatos.consultaservice:v2
       ports:
         - containerPort: 8080 # Porta exposta pelo container
