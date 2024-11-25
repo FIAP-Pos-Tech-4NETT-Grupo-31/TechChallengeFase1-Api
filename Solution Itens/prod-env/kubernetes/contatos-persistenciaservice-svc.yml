@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: contatos-persistenciaservice-svc
   labels: # Definição de rótulos
-    app: contatos-app
+    app: contatos-persistenciaservice
     env: production
     group: servicos-de-api
     ms: persistenciaservice
@@ -12,7 +12,7 @@ metadata:
     url: "http://localhost:31085/"
 spec:
   selector:
-    app: contatos-app
+    app: contatos-persistenciaservice-pod       # NOME DO POD QUE VAI SER SERVIDO
   ports:
     - protocol: TCP
       port: 8085         # Porta interna que o Service expõe dentro do cluster

@@ -3,10 +3,13 @@ kind: Service
 metadata:
   name: rabbitmq-svc
   labels:
-    app: rabbitmq
+    app: rabbitmq-service
+    env: production
+    group: servicos-gerais
+    ms: rabbitmq
 spec:
   selector:
-    app: contatos-app  # tem que ser o mesmo das apis
+    app: rabbitmq-pod  # tem que ser o mesmo das apis
   ports:
   - name: amqp
     port: 5672         # Porta acessada pelo Service

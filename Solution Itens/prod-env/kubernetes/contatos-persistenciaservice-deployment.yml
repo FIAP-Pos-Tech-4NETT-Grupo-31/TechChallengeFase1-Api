@@ -3,19 +3,22 @@ kind: Deployment
 metadata:
   name: contatos-persistenciaservice-deployment
   labels:
-    app: arquivo-persistenciaservice-deployment
+    app: contatos-persistenciadeployment
+    env: production
+    group: servicos-de-api
+    ms: persistenciaservice
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: contatos-app
+      app: contatos-persistenciaservice-pod         # NOME DO POD QUE SERÁ CRIADO
   template:
     metadata:
       labels:
-        app: contatos-app
+        app: contatos-persistenciaservice-pod       # NOME DO POD QUE VAI SER GERENCIADO (MESMO DE CIMA)
     spec:
       containers:
-    - name: contatos-persistenciaservice-container
-      image: rodrigocezarleao/contatos.persistenciaservice:v2
+      - name: contatos-persistenciaservice-container
+        image: rodrigocezarleao/contatos.persistenciaservice:v2
         ports:
         - containerPort: 8080

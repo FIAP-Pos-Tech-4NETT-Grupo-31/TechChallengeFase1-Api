@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: rabbitmq-deployment
   labels: # Definição de rótulos
-    app: contatos-app
+    app: rabbitmq-dpl
     env: production
     group: servicos-gerais
     ms: rabbitmq
@@ -13,14 +13,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rabbitmq
+      app: rabbitmq-pod
   template:
     metadata:
       labels:
-        app: rabbitmq
+        app: rabbitmq-pod
     spec:
-      selector:
-        app: contatos-app  # tem que ser o mesmo das apis
       containers:
       - name: rabbitmq
         image: rabbitmq:3-management 
