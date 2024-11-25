@@ -3,19 +3,22 @@ kind: Deployment
 metadata:
   name: contatos-exclusaoservice-deployment
   labels:
-    app: arquivo-exclusaoservice-deployment
+    app: contatos-exclusaodeployment
+    env: production
+    group: servicos-de-api
+    ms: exclusaoservice
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: contatos-app
+      app: contatos-exclusaoservice-pod
   template:
     metadata:
       labels:
-        app: contatos-app
+        app: contatos-exclusaoservice-pod
     spec:
       containers:
-    - name: contatos-exclusaoservice-container
-      image: rodrigocezarleao/contatos.exclusaoservice:v2
+      - name: contatos-exclusaoservice-container
+        image: rodrigocezarleao/contatos.exclusaoservice:v2
         ports:
         - containerPort: 8080

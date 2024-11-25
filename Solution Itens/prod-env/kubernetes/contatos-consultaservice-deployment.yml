@@ -2,17 +2,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: contatos-consultaservice-deployment
-  labels:
-    app: arquivo-consultaservice-deployment
+  labels:    
+    app: contatos-consultadeployment
+    env: production
+    group: servicos-de-api
+    ms: consultaservice
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: contatos-app
+      app: contatos-consultaservice-pod
   template:
     metadata:
       labels:
-        app: contatos-app
+        app: contatos-consultaservice-pod
     spec:
       containers:
       - name: contatos-consultaservice-container

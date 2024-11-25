@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: contatos-cadastroservice-svc
   labels: # Definição de rótulos
-    app: contatos-app
+    app: contatos-cadastroservice
     env: production
     group: servicos-de-api
     ms: cadastroservice
@@ -12,7 +12,7 @@ metadata:
     url: "http://localhost:31081/"
 spec:
   selector:
-    app: contatos-app
+    app: contatos-persistenciaservice-pod
   ports:
     - protocol: TCP
       port: 8081         # Porta interna que o Service expõe dentro do cluster

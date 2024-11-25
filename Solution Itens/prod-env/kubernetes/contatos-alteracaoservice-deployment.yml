@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contatos-alteracaoservice-deployment
+  labels:
+    app: contatos-alteracaodeployment
+    env: production
+    group: servicos-de-api
+    ms: alteracaoservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: contatos-alteracaoservice-pod
+  template:
+    metadata:
+      labels:
+        app: contatos-alteracaoservice-pod
+    spec:
+      containers:
+      - name: contatos-alteracaoservice-container
+        image: rodrigocezarleao/contatos.alteracaoservice:v2
+        ports:
+        - containerPort: 8080

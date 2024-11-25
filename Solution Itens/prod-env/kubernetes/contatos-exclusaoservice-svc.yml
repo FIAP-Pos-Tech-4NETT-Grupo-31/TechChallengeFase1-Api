@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: contatos-exclusaoservice-svc
   labels: # Definição de rótulos
-    app: contatos-app
+    app: contatos-exclusaoservice
     env: production
     group: servicos-de-api
     ms: exclusaoservice
@@ -12,7 +12,7 @@ metadata:
     url: "http://localhost:31084/"
 spec:
   selector:
-    app: contatos-app
+    app: contatos-exclusaoservice-pod
   ports:
     - protocol: TCP
       port: 8084         # Porta interna que o Service expõe dentro do cluster

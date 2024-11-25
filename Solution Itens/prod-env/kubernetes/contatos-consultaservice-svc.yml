@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: contatos-consultaservice-svc
   labels: # Definição de rótulos
-    app: contatos-app
+    app: contatos-consultaservice
     env: production
     group: servicos-de-api
     ms: consultaservice
@@ -12,7 +12,7 @@ metadata:
     url: "http://localhost:31082/"
 spec:
   selector:
-    app: contatos-app
+    app: contatos-consultaservice-pod
   ports:
     - protocol: TCP
       port: 8082         # Porta interna que o Service expõe dentro do cluster

@@ -2,20 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: contatos-cadastroservice-deployment
-  labels: 
-    app: arquivo-cadastroservice-deployment
+  labels:
+    app: contatos-cadastrodeployment
+    env: production
+    group: servicos-de-api
+    ms: cadastroservice
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: contatos-app
+      app: contatos-persistenciaservice-pod
   template:
     metadata:
       labels:
-        app: contatos-app
+        app: contatos-persistenciaservice-pod
     spec:
       containers:
-    - name: contatos-cadastroservice-container
-      image: rodrigocezarleao/contatos.inclusaoservice:v2
+      - name: contatos-cadastroservice-container
+        image: rodrigocezarleao/contatos.inclusaoservice:v2
         ports:
         - containerPort: 8080

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: sqlserver-deployment
   labels:
-    app: contatos-app
+    app: sqlserver-dpl
     env: production
     group: servicos-gerais
     ms: sqlserver
@@ -13,11 +13,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: contatos-app
+      app: sqlserver-pod
   template:
     metadata:
       labels:
-        app: contatos-app
+        app: sqlserver-pod
     spec:
       containers:
       - name: sqlserver

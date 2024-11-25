@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: sqlserver-svc
   labels: # Definição de rótulos
-    app: contatos-app
+    app: sqlserver-service
     env: production
     group: servicos-gerais
     ms: sqlserver
@@ -11,7 +11,7 @@ metadata:
     description: "Este service é usado para o banco de dados"
 spec:
   selector:
-    app: contatos-app    # tem que ser o mesmo das apis
+    app: sqlserver-pod    # tem que ser o mesmo das apis
   ports:
     - protocol: TCP
       port: 1433        # Porta do Service
