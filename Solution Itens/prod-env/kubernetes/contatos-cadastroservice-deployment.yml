@@ -11,11 +11,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: contatos-persistenciaservice-pod
+      app: contatos-cadastroservice-pod
   template:
     metadata:
       labels:
-        app: contatos-persistenciaservice-pod
+        app: contatos-cadastroservice-pod
     spec:
       containers:
       - name: contatos-cadastroservice-container
