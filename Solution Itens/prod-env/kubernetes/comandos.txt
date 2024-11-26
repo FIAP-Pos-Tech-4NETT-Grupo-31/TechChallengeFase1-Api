@@ -1,0 +1,107 @@
+// AlteracaoService
+docker build -t rodrigocezarleao/contatos.alteracaoservice:v2 .
+docker run -d -p 8083:8080 rodrigocezarleao/contatos.alteracaoservice:v2
+docker push rodrigocezarleao/contatos.alteracaoservice:v2
+
+kubectl apply -f contatos-alteracaoservice-pod.yml
+kubectl apply -f contatos-alteracaoservice-svc.yml
+
+
+// InclusaoService
+docker build -t rodrigocezarleao/contatos.inclusaoservice:v2 .
+docker run -d -p 8081:8080 rodrigocezarleao/contatos.inclusaoservice:v2
+docker push rodrigocezarleao/contatos.inclusaoservice:v2
+
+kubectl apply -f contatos-cadastroservice-pod.yml
+kubectl apply -f contatos-cadastroservice-svc.yml
+
+
+// ExclusaoService
+docker build -t rodrigocezarleao/contatos.exclusaoservice:v2 .
+docker run -d -p 8084:8080 rodrigocezarleao/contatos.exclusaoservice:v2
+docker push rodrigocezarleao/contatos.exclusaoservice:v2
+
+kubectl apply -f contatos-exclusaoservice-pod.yml
+kubectl apply -f contatos-exclusaoservice-svc.yml
+
+
+// ConsultaService
+docker build -t rodrigocezarleao/contatos.consultaservice:v2 .
+docker run -d -p 8082:8080 rodrigocezarleao/contatos.consultaservice:v2
+docker push rodrigocezarleao/contatos.consultaservice:v2
+
+kubectl apply -f contatos-consultaservice-pod.yml
+kubectl apply -f contatos-consultaservice-svc.yml
+
+
+// PersistenciaService
+docker build -t rodrigocezarleao/contatos.persistenciaservice:v2 .
+docker run -d -p 8085:8080 rodrigocezarleao/contatos.persistenciaservice:v2
+docker push rodrigocezarleao/contatos.persistenciaservice:v2
+
+kubectl apply -f contatos-persistenciaservice-pod.yml
+kubectl apply -f contatos-persistenciaservice-svc.yml
+
+
+// SQL Server e MSSQLtools
+// Banco não funciona como pod, só como deployment
+kubectl apply -f sqlserver-deployment.yml
+kubectl apply -f sqlserver-svc.yml
+kubectl apply -f sqlserver-pv.yml
+kubectl apply -f sqlserver-pvc.yml
+
+kubectl apply -f mssqltools-job.yml
+
+
+// RabbitMQ
+kubectl apply -f rabbitmq-deployment.yml
+kubectl apply -f rabbitmq-svc.yml
+
+// Prometheus
+kubectl apply -f prometheus-deployment.yml
+kubectl apply -f prometheus-configmap.yml
+kubectl apply -f prometheus-pv.yml
+kubectl apply -f prometheus-pvc.yml
+kubectl apply -f prometheus-svc.yml
+
+
+// Loki
+kubectl apply -f loki-deployment.yml
+kubectl apply -f loki-configmap.yml
+kubectl apply -f loki-pv.yml
+kubectl apply -f loki-pvc.yml
+kubectl apply -f loki-svc.yml
+
+
+// Grafana
+kubectl apply -f grafana-deployment.yml
+kubectl apply -f grafana-configmap.yml
+kubectl apply -f grafana-pv.yml
+kubectl apply -f grafana-pvc.yml
+kubectl apply -f grafana-svc.yml
+
+
+
+
+
+// Consulta por rótulos (labels)
+
+kubectl get pods -l group=servicos-de-api
+kubectl get pods -l env=production,group=servicos-de-api
+
+
+// Deletar todos os recursos
+kubectl delete all --all -n default
+
+
+// DNS interno k8s
+sqlserver-svc.default.svc.cluster.local
+rabbitmq-svc.default.svc.cluster.local
+loki-svc.default.svc.cluster.local
+<service-name>.<namespace>.svc.cluster.local
+
+
+// Volumes
+kubectl get pv
+kubectl get pvc
+

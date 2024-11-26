@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sqlserver-pv
+spec:
+  capacity:
+    storage: 1Gi   # Tamanho do volume
+  accessModes:
+    - ReadWriteOnce   # Modo de acesso ao volume
+  hostPath:
+    path: /mnt/data/sqlserver   # Caminho no nó onde o volume será montado (ajuste conforme necessário)
