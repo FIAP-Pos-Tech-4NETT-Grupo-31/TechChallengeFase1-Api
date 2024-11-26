@@ -40,9 +40,6 @@ spec:
           #     subPath: init.sql
           # command: ["/bin/bash", "/opt/sqlserver-entrypoint.sh"]
       volumes:
-        - name: sqlserver-config
-          configMap:
-            name: sqlserver-config
-        - name: sqlserver-data
+        - name: sqlserver-storage  # Nome do volume montado
           persistentVolumeClaim:
-            claimName: sqlserver-pvc
+            claimName: sqlserver-pvc  # PVC que será utilizado para o volume persistente

@@ -4,8 +4,10 @@ metadata:
   name: sqlserver-pv
 spec:
   capacity:
-    storage: 1Gi   # Tamanho do volume
+    storage: 1Gi  # Tamanho do volume
   accessModes:
-    - ReadWriteOnce   # Modo de acesso ao volume
-  hostPath:
-    path: /mnt/data/sqlserver   # Caminho no nó onde o volume será montado (ajuste conforme necessário)
+    - ReadWriteOnce  # Define que o volume pode ser montado como leitura e escrita por um único nó
+  persistentVolumeReclaimPolicy: Retain  # Mantém os dados após a exclusão do PVC (evita perda de dados)
+  storageClassName: manual  # Nome da StorageClass, pode ser personalizada ou padrão
+  hostPath:  # Usado em ambientes locais, como o Docker Desktop
+    path: /mnt/data/sqlserver  # Caminho local no nó onde os dados serão armazenados

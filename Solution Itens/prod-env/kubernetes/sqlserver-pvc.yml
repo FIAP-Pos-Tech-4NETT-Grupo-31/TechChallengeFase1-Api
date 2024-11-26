@@ -4,7 +4,8 @@ metadata:
   name: sqlserver-pvc
 spec:
   accessModes:
-    - ReadWriteOnce  # Modo de acesso
+    - ReadWriteOnce  # Define que o volume será montado com leitura e escrita em um único pod
   resources:
     requests:
-      storage: 1Gi  # Solicitação de armazenamento
+      storage: 1Gi  # Solicita 10 GB de armazenamento
+  storageClassName: manual  # Nome da StorageClass, deve ser o mesmo que o do PV
