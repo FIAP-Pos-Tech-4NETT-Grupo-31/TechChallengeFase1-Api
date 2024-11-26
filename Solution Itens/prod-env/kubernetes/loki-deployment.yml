@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loki-deployment
+  labels:
+    app: loki
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loki
+  template:
+    metadata:
+      labels:
+        app: loki
+    spec:
+      containers:
+        - name: loki
+          image: grafana/loki:2.9.4
+          ports:
+            - containerPort: 3100          
+      volumes:
+        - name: loki-config
+          configMap:
+            name: loki-config-map  # Nome do ConfigMap que contém o arquivo de configuração
+        - name: loki-data
+          persistentVolumeClaim:
+            claimName: loki-pvc  # PVC que você criará para o armazenamento de dados
