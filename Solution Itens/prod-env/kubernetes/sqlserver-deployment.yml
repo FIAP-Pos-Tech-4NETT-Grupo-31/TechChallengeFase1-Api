@@ -13,34 +13,36 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sqlserver
+      app: sqlserver-pod
   template:
     metadata:
       labels:
-        app: sqlserver
+        app: sqlserver-pod
     spec:
       containers:
         - name: sqlserver
-          image: mcr.microsoft.com/azure-sql-edge  # Imagem do SQL Server para Kubernetes
+          image: mcr.microsoft.com/azure-sql-edge
           ports:
-            - containerPort: 1433  # Porta do SQL Server
+            - containerPort: 1433
           env:
             - name: ACCEPT_EULA
               value: "Y"
             - name: MSSQL_SA_PASSWORD
-              value: "Grupo#31"  # Defina uma senha segura
+              value: "Grupo#31"
             - name: MSSQL_PID
               value: "Developer"
+          # volumeMounts:
+          #   - name: sqlserver-entrypoint
+          #     mountPath: /opt/sqlserver-entrypoint.sh
+          #     subPath: entrypoint.sh
+          #   - name: sqlserver-init
+          #     mountPath: /mnt/data/sqlserver
+          #     subPath: init.sql
+          # command: ["/bin/bash", "/opt/sqlserver-entrypoint.sh"]
       volumes:
         - name: sqlserver-config
           configMap:
             name: sqlserver-config
-            items:
-              - key: sqlserver.conf
-                path: sqlserver.conf
-        - name: sqlserver-init
-          configMap:
-            name: sqlserver-config
-            items:
-              - key: init.sql
-                path: init.sql
+        - name: sqlserver-data
+          persistentVolumeClaim:
+            claimName: sqlserver-pvc
