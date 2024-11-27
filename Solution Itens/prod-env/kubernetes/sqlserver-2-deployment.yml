@@ -27,7 +27,20 @@ spec:
         volumeMounts:
         - mountPath: /var/opt/mssql
           name: mssql-data
+        - name: init-script
+          mountPath: /docker-entrypoint-initdb.d
+          readOnly: true
+        command:
+        - /bin/bash
+        - -c
+        - |
+          /opt/mssql/bin/sqlservr & sleep 20 && \
+          /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Grupo#31 -i /docker-entrypoint-initdb.d/init.sql && \
+          tail -f /dev/null
       volumes:
       - name: mssql-data
         persistentVolumeClaim:
           claimName: mssql-pvc
+      - name: init-script
+        configMap:
+          name: init-sql-config

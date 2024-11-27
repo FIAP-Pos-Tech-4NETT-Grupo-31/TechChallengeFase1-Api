@@ -92,7 +92,10 @@ kubectl get pods -l env=production,group=servicos-de-api
 
 // Deletar todos os recursos
 kubectl delete all --all -n default
-kubectl delete pvc --all  // Deleta o pv também (se for criado pelo pvc)
+// Deleta o pv também (se for criado pelo pvc)
+kubectl delete pvc --all
+kubectl delete configmap --all
+
 kubectl delete pv --all
 
 
@@ -108,13 +111,27 @@ loki-svc.default.svc.cluster.local
 kubectl get pv
 kubectl get pvc
 
+// Comentários Gerais
+- Ordem de definição: configmap, deployment, service, pvc
+- Não precisa de arquivo PV pois ele cria sozinho ao rodar o pvc (deletar o pvc deleta o pv)
+
 ---------------------- Temporário 
 // Combinar tudo num arquivo só (facilitar comandos)
+kubectl apply -f sqlserver-2-configmap.yml
 kubectl apply -f sqlserver-2-deployment.yml
 kubectl apply -f sqlserver-2-svc.yml
 kubectl apply -f sqlserver-2-pvc.yml
 
 kubectl delete pod -l app=sqlserver-pod
 
+// Ver se o arquivo de init está no container
+kubectl exec -it <nome-do-pod> -- ls /docker-entrypoint-initdb.d
 
-// PV ele cria sozinho, não precisa de arquivo
+// Executar arquivo init.sql dentro do pod na mão
+kubectl exec -it <nome-do-pod> -- /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Grupo#31 -i /docker-entrypoint-initdb.d/init.sql
+
+
+
+
+
+
