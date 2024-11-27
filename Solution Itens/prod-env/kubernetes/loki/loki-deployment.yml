@@ -1,0 +1,30 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loki
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loki-pod
+  template:
+    metadata:
+      labels:
+        app: loki-pod
+    spec:
+      containers:
+        - name: loki
+          image: grafana/loki:latest
+          args:
+            - "-config.file=/etc/loki/loki-config.yml"
+          ports:
+            - containerPort: 3100
+          volumeMounts:
+            - name: config
+              mountPath: /etc/loki/loki-config.yml
+              subPath: loki-config.yml
+      volumes:
+        - name: config
+          configMap:
+            name: loki-config

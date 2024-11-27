@@ -129,6 +129,11 @@ kubectl get pvc
 - Ordem de definição: configmap, deployment, service, pvc
 - Não precisa de arquivo PV pois ele cria sozinho ao rodar o pvc (deletar o pvc deleta o pv)
 
+
+kubectl get pods --watch
+
+https://k8slens.dev/
+
 ---------------------- Temporário 
 
 

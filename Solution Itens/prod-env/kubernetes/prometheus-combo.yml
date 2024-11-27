@@ -1,0 +1,80 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 10s # Intervalo padrão entre scrapes
+
+    scrape_configs:
+      - job_name: 'Contatos.CadastroService-read-http'
+        static_configs:
+        - targets: ['contatos-cadastroservice-svc.default.svc.cluster.local:8081']
+
+      - job_name: 'Contatos.ConsultaService-read-http'
+        static_configs:
+        - targets: ['contatos-consultaservice-svc.default.svc.cluster.local:8082']
+
+      - job_name: 'Contatos.PersistenciaService-read-http'
+        static_configs:
+        - targets: ['contatos-persistenciaservice-svc.default.svc.cluster.local:8085']
+
+      - job_name: 'Contatos.ExclusaoService-read-http'
+        static_configs:
+        - targets: ['contatos-exclusaoservice-svc.default.svc.cluster.local:8084']
+
+      - job_name: 'Contatos.AlteracaoService-read-http'
+        static_configs:
+        - targets: ['contatos-alteracaoservice-svc.default.svc.cluster.local:8083']
+
+      - job_name: 'prometheus'
+        static_configs:
+        - targets: ['localhost:9090']
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-pod
+  template:
+    metadata:
+      labels:
+        app: prometheus-pod
+    spec:
+      containers:
+      - name: prometheus
+        image: prom/prometheus:latest
+        ports:
+        - containerPort: 9090
+        volumeMounts:
+        - name: prometheus-config-volume
+          mountPath: /etc/prometheus/prometheus.yml
+          subPath: prometheus.yml
+      volumes:
+      - name: prometheus-config-volume
+        configMap:
+          name: prometheus-config
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-service
+spec:
+  selector:
+    app: prometheus-pod
+  ports:
+    - protocol: TCP
+      port: 9090
+      targetPort: 9090
+      nodePort: 30090 
+  type: NodePort

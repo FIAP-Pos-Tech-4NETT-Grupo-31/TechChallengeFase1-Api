@@ -6,21 +6,22 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: prometheus
+      app: prometheus-pod
   template:
     metadata:
       labels:
-        app: prometheus
+        app: prometheus-pod
     spec:
       containers:
       - name: prometheus
         image: prom/prometheus:latest
         ports:
         - containerPort: 9090
+        volumeMounts:
+        - name: prometheus-config-volume
+          mountPath: /etc/prometheus/prometheus.yml
+          subPath: prometheus.yml
       volumes:
-      - name: prometheus-config
+      - name: prometheus-config-volume
         configMap:
           name: prometheus-config
-      - name: prometheus-data
-        persistentVolumeClaim:
-          claimName: prometheus-pvc
