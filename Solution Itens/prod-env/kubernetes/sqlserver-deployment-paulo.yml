@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sqlserver-deployment
+  labels:
+    app: sqlserver-dpl
+    env: production
+    group: servicos-gerais
+    ms: sqlserver
+  annotations:
+    description: "Este deployment é usado para o banco de dados"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sqlserver-pod
+  template:
+    metadata:
+      labels:
+        app: sqlserver-pod
+    spec:
+      initContainers:
+        - name: init-sqlserver
+          image: mcr.microsoft.com/mssql-tools
+          restartPolicy: Always
+          command:
+            - /bin/bash
+            - -c
+            - |
+              sleep 30s # Aguarda o SQL Server estar pronto para aceitar conexões
+              if /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P Grupo#31 -Q "IF DB_ID('Contatos') IS NULL PRINT 'NOT_EXISTS'" | grep NOT_EXISTS; then
+                echo "Banco de dados não existe. Criando..."
+                /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P Grupo#31 -d master -i /scripts/generate-database.sql -e
+                exit 0
+              else
+                echo "Banco de dados já existe. Nenhuma ação necessária."
+                exit 0
+              fi              
+          volumeMounts:
+            - name: sql-init-scripts
+              mountPath: /scripts
+      containers:
+        - name: sqlserver
+          image: mcr.microsoft.com/azure-sql-edge
+          ports:
+            - containerPort: 1433
+          env:
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: MSSQL_SA_PASSWORD
+              value: "Grupo#31"
+            - name: MSSQL_PID
+              value: "Developer"
+      volumes:
+        - name: sql-init-scripts
+          configMap:
+            name: sql-init-scripts
