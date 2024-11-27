@@ -2,6 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sqlserver-deployment
+  labels:
+    app: sqlserver-dpl
+    env: production
+    group: servicos-gerais
+    ms: sqlserver
+  annotations:
+    description: "Este deployment é usado para o banco de dados"
 spec:
   replicas: 1
   selector:

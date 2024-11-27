@@ -2,6 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: sqlserver-svc
+  labels:
+    app: sqlserver-service
+    env: production
+    group: servicos-gerais
+    ms: sqlserver
+  annotations:
+    description: "Este service é usado para o banco de dados"
 spec:
   selector:
     app: sqlserver-pod

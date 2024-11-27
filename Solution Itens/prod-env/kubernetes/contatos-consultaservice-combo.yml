@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contatos-consultaservice-deployment
+  labels:    
+    app: contatos-consultadeployment
+    env: production
+    group: servicos-de-api
+    ms: consultaservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: contatos-consultaservice-pod
+  template:
+    metadata:
+      labels:
+        app: contatos-consultaservice-pod
+    spec:
+      containers:
+      - name: contatos-consultaservice-container
+        image: rodrigocezarleao/contatos.consultaservice:v2
+        ports:
+        - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: contatos-consultaservice-svc
+  labels:
+    app: contatos-consultaservice
+    env: production
+    group: servicos-de-api
+    ms: consultaservice
+  annotations:
+    description: "Este service é usado para o microsserviço de consulta de contato"
+    url: "http://localhost:31082/"
+spec:
+  selector:
+    app: contatos-consultaservice-pod
+  ports:
+    - protocol: TCP
+      port: 8082         
+      targetPort: 8080   
+      nodePort: 31082    
+  type: NodePort

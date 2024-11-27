@@ -43,19 +43,33 @@ kubectl apply -f contatos-persistenciaservice-pod.yml
 kubectl apply -f contatos-persistenciaservice-svc.yml
 
 
-// SQL Server e MSSQLtools
-// Banco não funciona como pod, só como deployment
+// SQL Server
+// Combinar tudo num arquivo só (facilitar comandos)
+kubectl apply -f sqlserver-combo.yml
+
+kubectl apply -f sqlserver-configmap.yml
 kubectl apply -f sqlserver-deployment.yml
 kubectl apply -f sqlserver-svc.yml
-kubectl apply -f sqlserver-pv.yml
 kubectl apply -f sqlserver-pvc.yml
 
-kubectl apply -f mssqltools-job.yml
+kubectl delete pod -l app=sqlserver-pod
+
+// Ver se o arquivo de init está no container
+kubectl exec -it <nome-do-pod> -- ls /docker-entrypoint-initdb.d
+
+// Executar arquivo init.sql dentro do pod na mão
+kubectl exec -it <nome-do-pod> -- /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Grupo#31 -i /docker-entrypoint-initdb.d/init.sql
+
+
 
 
 // RabbitMQ
 kubectl apply -f rabbitmq-deployment.yml
 kubectl apply -f rabbitmq-svc.yml
+
+
+
+
 
 // Prometheus
 kubectl apply -f prometheus-deployment.yml
@@ -116,19 +130,7 @@ kubectl get pvc
 - Não precisa de arquivo PV pois ele cria sozinho ao rodar o pvc (deletar o pvc deleta o pv)
 
 ---------------------- Temporário 
-// Combinar tudo num arquivo só (facilitar comandos)
-kubectl apply -f sqlserver-2-configmap.yml
-kubectl apply -f sqlserver-2-deployment.yml
-kubectl apply -f sqlserver-2-svc.yml
-kubectl apply -f sqlserver-2-pvc.yml
 
-kubectl delete pod -l app=sqlserver-pod
-
-// Ver se o arquivo de init está no container
-kubectl exec -it <nome-do-pod> -- ls /docker-entrypoint-initdb.d
-
-// Executar arquivo init.sql dentro do pod na mão
-kubectl exec -it <nome-do-pod> -- /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Grupo#31 -i /docker-entrypoint-initdb.d/init.sql
 
 
 

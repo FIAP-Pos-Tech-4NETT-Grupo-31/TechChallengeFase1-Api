@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contatos-persistenciaservice-deployment
+  labels:
+    app: contatos-persistenciadeployment
+    env: production
+    group: servicos-de-api
+    ms: persistenciaservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: contatos-persistenciaservice-pod
+  template:
+    metadata:
+      labels:
+        app: contatos-persistenciaservice-pod
+    spec:
+      containers:
+      - name: contatos-persistenciaservice-container
+        image: rodrigocezarleao/contatos.persistenciaservice:v2
+        ports:
+        - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: contatos-persistenciaservice-svc
+  labels:
+    app: contatos-persistenciaservice
+    env: production
+    group: servicos-de-api
+    ms: persistenciaservice
+  annotations:
+    description: "Este service é usado para o microsserviço de persistência de banco"
+    url: "http://localhost:31085/"
+spec:
+  selector:
+    app: contatos-persistenciaservice-pod
+  ports:
+    - protocol: TCP
+      port: 8085        
+      targetPort: 8080  
+      nodePort: 31085   
+  type: NodePort        

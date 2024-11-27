@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contatos-alteracaoservice-deployment
+  labels:
+    app: contatos-alteracaodeployment
+    env: production
+    group: servicos-de-api
+    ms: alteracaoservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: contatos-alteracaoservice-pod
+  template:
+    metadata:
+      labels:
+        app: contatos-alteracaoservice-pod
+    spec:
+      containers:
+      - name: contatos-alteracaoservice-container
+        image: rodrigocezarleao/contatos.alteracaoservice:v2
+        ports:
+        - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: contatos-alteracaoservice-svc
+  labels:
+    app: contatos-alteracaoservice
+    env: production
+    group: servicos-de-api
+    ms: alteracaoservice
+  annotations:
+    description: "Este service é usado para o microsserviço de alteração de contato"
+    url: "http://localhost:31083/"
+spec:
+  selector:
+    app: contatos-alteracaoservice-pod
+  ports:
+    - protocol: TCP
+      port: 8083        
+      targetPort: 8080  
+      nodePort: 31083   
+  type: NodePort        

@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-deployment
+  labels:
+    app: rabbitmq-dpl
+    env: production
+    group: servicos-gerais
+    ms: rabbitmq
+  annotations:
+    description: "Este deployment é usado para o rabbit mq. AMPQ é porta 5672. UI é porta 15672"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq-pod
+  template:
+    metadata:
+      labels:
+        app: rabbitmq-pod
+    spec:
+      containers:
+      - name: rabbitmq
+        image: rabbitmq:3-management 
+        ports:
+        - containerPort: 5672
+        - containerPort: 15672
+        env:
+        - name: RABBITMQ_DEFAULT_PASS
+          value: "Grupo#31"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-svc
+  labels:
+    app: rabbitmq-service
+    env: production
+    group: servicos-gerais
+    ms: rabbitmq
+spec:
+  selector:
+    app: rabbitmq-pod
+  ports:
+  - name: amqp
+    port: 5672       
+    targetPort: 5672 
+    nodePort: 31671  
+  - name: management
+    port: 15672      
+    targetPort: 15672
+    nodePort: 31672  
+  type: NodePort
