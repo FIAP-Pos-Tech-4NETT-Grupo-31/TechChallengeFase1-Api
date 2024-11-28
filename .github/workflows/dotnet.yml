@@ -2,9 +2,9 @@ name: .NET CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "feat/fase4" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "feat/fase4" ]
 
 jobs:
   build:
